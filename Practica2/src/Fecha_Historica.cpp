@@ -79,6 +79,7 @@ bool Fecha_Historica::leerString(string cadena){
       //anio
       anio = stoi(cadena.substr(0,posicion));
 
+      assert(to_string(anio) == cadena.substr(0,posicion));
       //se borra del string la parte que corresponde con el anio que es el primer
       // token
       cadena.erase(0,posicion+1);
