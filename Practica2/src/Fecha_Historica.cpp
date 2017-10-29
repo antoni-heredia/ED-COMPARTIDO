@@ -50,9 +50,15 @@ void Fecha_Historica::anadirAcontecimiento(string cadena){
 }
 
 void Fecha_Historica::eliminarAcontecimiento(int posicion){
+  assert(num_acont>0);
+  assert(posicion<num_acont);
+  assert(posicion>=0);
 
+  for (int i = posicion ; i < num_acont-1; i++)
+    vector[i] = vector[i+1];
+
+  num_acont = num_acont-1;
 }
-
 
 bool Fecha_Historica::leerFichero(const char* direccion_fichero){
   bool estado = true;
@@ -170,7 +176,22 @@ Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) con
 
   return encontrados;
 }
-
+Fecha_Historica& Fecha_Historica::operator=(const Fecha_Historica & original){
+  if (&original!=this){
+    copia(original);
+  }
+  return *this;
+}
+Fecha_Historica::Fecha_Historica(const Fecha_Historica & f){
+  copia(f);
+}
+void Fecha_Historica::copia(const Fecha_Historica & f){
+  num_acont = f.getNumeroAconteciemientos();
+  anio = f.getAnio();
+  vector.resize(num_acont);
+  for (int i = 0;i < num_acont;i++)
+    vector[i] = f.getAcontecimientos()[i];
+}
 ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
   s << fecha.getAnio();
   Vector_Dinamico<string> vector = fecha.getAcontecimientos();
@@ -178,21 +199,27 @@ ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
     s << "#" << vector[i];
   s <<endl;
   return s;
-
 }
-
-
 int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
   Vector_Dinamico<string> vector=prueba.busqueda("hola");
 
   cout << prueba.to_s();
-
+  Fecha_Historica prueba2(prueba),prueba3;
   for (int i = 0; i < vector.size(); i++)
     cout << vector[i] << endl;
 
-  cout << "Numero de aconteciemtos: " << prueba.getNumeroAconteciemientos() << endl;
+  cout << "Numero de acontecimientos: " << prueba.getNumeroAconteciemientos() << endl;
+  prueba.eliminarAcontecimiento(5);
+  cout << "PRUEBA ELIMINACION"<<endl;
+  cout << prueba.to_s();
+  cout << "Numero de acontecimientos: " << prueba.getNumeroAconteciemientos() << endl;
+  cout << "PRUEBA2 CONSTRUCTOR DE COPIA"<<endl;
+  cout <<prueba2.to_s();
+  prueba3 = prueba2;
+  cout << "PRUEBA3 ASIGNACION"<<endl;
+  cout << prueba3;
 
   return 0;
 }

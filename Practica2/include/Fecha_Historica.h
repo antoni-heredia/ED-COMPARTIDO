@@ -12,12 +12,15 @@ class Fecha_Historica{
     Vector_Dinamico<std::string> vector;
     bool leerString(std::string cadena);
     bool leerFichero(const char* fichero);
+    void copia(const Fecha_Historica & f);
+
   public:
 
     Fecha_Historica();
     Fecha_Historica(int nuevo);
     Fecha_Historica(const std::string &cadena);
     Fecha_Historica(const char* direccion_fichero);
+    Fecha_Historica(const Fecha_Historica & f);
     int getAnio() const;
     int getNumeroAconteciemientos() const;
     Vector_Dinamico<std::string>  getAcontecimientos() const;
