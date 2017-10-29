@@ -1,14 +1,16 @@
 //#include "adicional.h"
 #include "Fecha_Historica.h"
 #include <assert.h>
-
+#include <cmath>
 using namespace std;
 Fecha_Historica::Fecha_Historica(){
   anio=0;
+  num_acont = 0;
   //vector=0;
 }
 Fecha_Historica::Fecha_Historica(int nuevo){
   anio=nuevo;
+  num_acont = 0;
   //vector=0;
 }
 Fecha_Historica::Fecha_Historica(const string &cadena){
@@ -24,6 +26,9 @@ Fecha_Historica::Fecha_Historica(const char* direccion_fichero){
 int Fecha_Historica::getAnio() const{
   return anio;
 }
+int Fecha_Historica::getNumeroAconteciemientos() const{
+  return num_acont;
+}
 
 Vector_Dinamico<std::string> Fecha_Historica::getAcontecimientos() const{
   return vector;
@@ -34,8 +39,14 @@ void Fecha_Historica::cambiarAnio(int nuevo){
 }
 
 void Fecha_Historica::anadirAcontecimiento(string cadena){
-  vector.resize(vector.size()+1);
-  vector[vector.size()-1]=cadena;
+  //Usamos esta comparacion para evitar realizar el resize de uno en uno
+  //lo hago porcetualmente(con un factor de 0.2)
+  if(num_acont == vector.size())
+    vector.resize(vector.size()+ceil(vector.size()*0.2)+1);
+
+  //añadimos la cadena y sumamos 1 al numero de acontecientos
+  vector[num_acont]=cadena;
+  num_acont++;
 }
 
 
@@ -78,7 +89,7 @@ bool Fecha_Historica::leerString(string cadena){
       //nos quedamos con la primera parte delimitada del string y se alamacena
       //anio
       anio = stoi(cadena.substr(0,posicion));
-
+      num_acont = 0;
       assert(to_string(anio) == cadena.substr(0,posicion));
       //se borra del string la parte que corresponde con el anio que es el primer
       // token
@@ -120,7 +131,7 @@ Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) con
   int acontecimientos_encontrados = 0;
 //nose si seria mejor hacerlos aumentando de 1 en 1 porque la clase vector tiene
 //solo la variable del tamaño del vector y no una con numero de elementos utilizados
-  for(int i = 0; i < vector.size(); i++){
+  for(int i = 0; i < num_acont; i++){
     //se mira si el string de la posicion i contiene la cadena buscada.
     if(vector[i].find(cadena) != vector[i].npos){
       //Si el vector de encontrados tiene el mimso tamaño que los aconteciemtos
@@ -152,7 +163,7 @@ Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) con
 ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
   s << fecha.getAnio();
   Vector_Dinamico<string> vector = fecha.getAcontecimientos();
-  for (int i = 0; i < vector.size(); i++)
+  for (int i = 0; i < fecha.getNumeroAconteciemientos(); i++)
     s << "#" << vector[i];
   s <<endl;
   return s;
@@ -163,12 +174,14 @@ ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
 int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
-
   Vector_Dinamico<string> vector=prueba.busqueda("hola");
+
   cout << prueba;
+
   for (int i = 0; i < vector.size(); i++)
     cout << vector[i] << endl;
-  cout << vector.size() << endl;
 
+  cout << prueba.getNumeroAconteciemientos() << endl;
 
+  return 0;
 }

@@ -8,6 +8,7 @@ class Fecha_Historica{
   private:
 
     int anio;
+    int num_acont;
     Vector_Dinamico<std::string> vector;
     bool leerString(std::string cadena);
     bool leerFichero(const char* fichero);
@@ -18,6 +19,7 @@ class Fecha_Historica{
     Fecha_Historica(const std::string &cadena);
     Fecha_Historica(const char* direccion_fichero);
     int getAnio() const;
+    int getNumeroAconteciemientos() const;
     Vector_Dinamico<std::string>  getAcontecimientos() const;
     void cambiarAnio(int nuevo);
     void anadirAcontecimiento(std::string cadena);
