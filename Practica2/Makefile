@@ -4,14 +4,14 @@ OBJ     = obj
 SRC = src
 BIN = bin
 CXX = g++
-CPPFLAGS = -Wall -g -c
+CPPFLAGS = -Wall -g -c -std=c++11
 AR = ar rvs
 AR_MACOS = libtool -static -o
 
 $(BIN)/Fecha_Historica : $(OBJ)/Fecha_Historica.o
 	$(CXX) -o $(BIN)/Fecha_Historica $(OBJ)/Fecha_Historica.o -I$(INCLUDE)
 
-$(OBJ)/Fecha_Historica.o : $(SRC)/Fecha_Historica.cpp
+$(OBJ)/Fecha_Historica.o : $(SRC)/Fecha_Historica.cpp $(INCLUDE)/Fecha_Historica.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Fecha_Historica.o $(SRC)/Fecha_Historica.cpp -I$(INCLUDE)
 
 # Nótese que como vector_dinamico es una clase genérica (template), no la hemos compilado explícitamente ni enlazado con ejemplo_vector_dinamico.o
