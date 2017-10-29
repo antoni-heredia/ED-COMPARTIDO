@@ -23,7 +23,8 @@ class Fecha_Historica{
     Vector_Dinamico<std::string>  getAcontecimientos() const;
     void cambiarAnio(int nuevo);
     void anadirAcontecimiento(std::string cadena);
-
+    void eliminarAcontecimiento(int posicion);
+    std::string to_s() const;
     Vector_Dinamico<std::string> busqueda(const std::string &cadena) const;
     Fecha_Historica& operator=(const Fecha_Historica & original);
 

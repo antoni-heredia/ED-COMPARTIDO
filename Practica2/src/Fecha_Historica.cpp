@@ -49,6 +49,9 @@ void Fecha_Historica::anadirAcontecimiento(string cadena){
   num_acont++;
 }
 
+void Fecha_Historica::eliminarAcontecimiento(int posicion){
+  
+}
 
 
 bool Fecha_Historica::leerFichero(const char* direccion_fichero){
@@ -123,6 +126,14 @@ bool Fecha_Historica::leerString(string cadena){
   return estado;
 }
 
+std::string Fecha_Historica::to_s() const{
+  string s;
+  s += "Año: " + to_string(anio) + "\n";
+  for (int i = 0; i < num_acont; i++)
+    s += "Acontecimiento " + to_string(i+1) + ": " + vector[i] + "\n";
+  s += "\n";
+  return s;
+}
 Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) const{
 //no lo inico con valor mayor que 0 para que si no se encontra ninguna coincidencia
 //tengamos un vector con size()=0 (Nose si seria mejor hacerlo devolviendo
@@ -176,7 +187,7 @@ int main(int argc, char *argv[]){
   Fecha_Historica prueba(argv[1]);
   Vector_Dinamico<string> vector=prueba.busqueda("hola");
 
-  cout << prueba;
+  cout << prueba.to_s();
 
   for (int i = 0; i < vector.size(); i++)
     cout << vector[i] << endl;
