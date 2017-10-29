@@ -50,7 +50,7 @@ void Fecha_Historica::anadirAcontecimiento(string cadena){
 }
 
 void Fecha_Historica::eliminarAcontecimiento(int posicion){
-  
+
 }
 
 
@@ -192,7 +192,7 @@ int main(int argc, char *argv[]){
   for (int i = 0; i < vector.size(); i++)
     cout << vector[i] << endl;
 
-  cout << prueba.getNumeroAconteciemientos() << endl;
+  cout << "Numero de aconteciemtos: " << prueba.getNumeroAconteciemientos() << endl;
 
   return 0;
 }
