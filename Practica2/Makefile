@@ -7,12 +7,19 @@ CXX = g++
 CPPFLAGS = -Wall -g -c -std=c++11
 AR = ar rvs
 AR_MACOS = libtool -static -o
+all : $(BIN)/Fecha_Historica $(BIN)/Cronologia
 
 $(BIN)/Fecha_Historica : $(OBJ)/Fecha_Historica.o
 	$(CXX) -o $(BIN)/Fecha_Historica $(OBJ)/Fecha_Historica.o -I$(INCLUDE)
 
 $(OBJ)/Fecha_Historica.o : $(SRC)/Fecha_Historica.cpp $(INCLUDE)/Fecha_Historica.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Fecha_Historica.o $(SRC)/Fecha_Historica.cpp -I$(INCLUDE)
+
+$(BIN)/Cronologia : $(OBJ)/Cronologia.o
+	$(CXX) -o $(BIN)/Cronologia $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o -I$(INCLUDE)
+
+$(OBJ)/Cronologia.o : $(SRC)/Cronologia.cpp $(INCLUDE)/Cronologia.h $(OBJ)/Fecha_Historica.o
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Cronologia.o $(SRC)/Cronologia.cpp -I$(INCLUDE)
 
 # Nótese que como vector_dinamico es una clase genérica (template), no la hemos compilado explícitamente ni enlazado con ejemplo_vector_dinamico.o
 # Como hemos incluido el código de vector_dinamico.tpp en el fichero de cabeceras vector_dinamico.h, cuando hagamos #include "Vector_Dinamico.h" desde otro fichero de código (por ejemplo, desde ejemplo_vector_dinamico.cpp)

@@ -1,2 +1,4 @@
 Practica2/obj/
 Practica2/bin/
+Practica2/*.save
+Practica2/*.save.*

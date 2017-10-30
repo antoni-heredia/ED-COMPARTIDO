@@ -1,3 +1,5 @@
+#ifndef VectorDinamico_tpp
+#define VectorDinamico_tpp
 #include <cassert>
 
 
@@ -82,3 +84,4 @@ Vector_Dinamico<T>& Vector_Dinamico<T>::operator=(const Vector_Dinamico<T> &orig
   }
   return *this;
 }
+#endif
