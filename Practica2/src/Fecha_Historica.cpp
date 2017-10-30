@@ -274,7 +274,7 @@ void Fecha_Historica::censurarString(string &censurado, const string &cadena){
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
-
+/*
 int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
@@ -301,3 +301,4 @@ int main(int argc, char *argv[]){
   cout << prueba3.to_s();
   return 0;
 }
+*/

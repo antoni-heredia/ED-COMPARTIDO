@@ -1,15 +1,14 @@
 #ifndef CRONOLOGIA_H
 #define CRONOLOGIA_H
 
-//#include "adicional.h"
-#include "Fecha_Historica.h"
+#include "adicional2.h"
 #include <fstream>
 #include <string>
 #include <iostream>
 
 class Cronologia{
   private:
-    //Vector_Dinamico<Fecha_Historica> vector_cronologico;
+    Vector_Dinamico<Fecha_Historica> vector_cronologico;
     bool orden_asc;
 
   public:
@@ -25,7 +24,7 @@ class Cronologia{
     bool esAscendente();
     Fecha_Historica busqueda(int fecha);
     Vector_Dinamico<std::string> busqueda(int fecha,const std::string cadena);
-    //Vector_Dinamico<Cronologia> busqueda(std::string cadena);
+    Vector_Dinamico<Cronologia> busqueda(std::string cadena);
     void AnadirFechaHistorica();
     void BorrarFechaHistorica();
 
