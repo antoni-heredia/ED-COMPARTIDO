@@ -1,3 +1,6 @@
+/**
+  * Clase Fecha_Historica. Representa los acontecimientos ocurridos en una fecha especificada.
+  */
 #ifndef FECHA_HISTORICA_H
 #define FECHA_HISTORICA_H
 #include "adicional.h"
@@ -7,9 +10,14 @@
 class Fecha_Historica{
   private:
 
-    int anio;
-    int num_acont;
-    Vector_Dinamico<std::string> vector;
+    int anio;/**< Entero que reseprensenta la fecha de los acontecimientos.*/
+    int num_acont;/**< Contiene el número de acontecimientos ocurridos en el año (anio).*/
+    Vector_Dinamico<std::string> vector;/**< Vector que contendrá todos los sucesos del año.*/
+    //!Método Privado Auxiliar: leerString
+      /*!
+        leerString permite procesar un string dado. Separa la cadena pasada por el delimitador (por defecto #) y utiliza las cadenas procesadas crear el objeto Fecha_Historica.
+        * \param cadena Cadena que va a ser procesada por la función.
+      */
     bool leerString(std::string cadena);
     bool leerFichero(const char* fichero);
     void copia(const Fecha_Historica & f);
