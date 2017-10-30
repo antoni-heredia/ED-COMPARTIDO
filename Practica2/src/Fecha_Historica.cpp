@@ -214,6 +214,47 @@ ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
   return s;
 }
 
+/**
+  Añade acontecimientos desde la entrada estandar, teniendo en cuenta el separador "#"
+*/
+istream& operator>>(istream& s, Fecha_Historica& fecha){
+  string acontecimiento;
+  getline(s,acontecimiento,'#');
+  fecha.anadirAcontecimiento(acontecimiento);
+  while(!s.eof()){
+    getline(s,acontecimiento,'#');
+    fecha.anadirAcontecimiento(acontecimiento);
+  }
+  return s;
+}
+
+bool Fecha_Historica :: operator == (const Fecha_Historica & otra){
+
+  // para ver si las fechas son igueles
+  bool iguales = false;
+
+  //Comprobamos que todos sus campos son iguales
+  if(anio == otra.anio && num_acont == otra.num_acont && vector.size() == otra.vector.size()){
+    //Para ver si existe algun  valor del vector que son diferentes
+    bool diferentes = false;
+    //Recorremos todos los elemenos del vector
+    for(int i = 0; i<vector.size() && !diferentes;i++){
+      //En el momento que encuentre dos posiciones del vector diferentes, ponemos diferentes a true y salimos del for
+      if(vector[i] != otra.vector[i])
+        diferentes = true;
+    }
+
+    //iguales siempre sera lo contrario de diferentes
+    iguales = !diferentes;
+  }
+
+  return iguales;
+}
+
+bool Fecha_Historica :: operator != (const Fecha_Historica & otra){
+  return (!((*this) == otra));
+}
+
 void Fecha_Historica::censurarString(string &censurado, const string &cadena){
   size_t posicion_inicio = 0;
   //sustituimos por 4 * para no dar pistas sobre la palabra que es
@@ -229,9 +270,11 @@ void Fecha_Historica::censurarString(string &censurado, const string &cadena){
     posicion_inicio += sustituto.size();
   }
 }
+
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
+
 int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
@@ -254,6 +297,7 @@ int main(int argc, char *argv[]){
   prueba3.eliminarAcontecimiento(7);
   prueba3.eliminarAcontecimiento(1);
   cout << prueba3.to_s();
-
+  cin >> prueba3;
+  cout << prueba3.to_s();
   return 0;
 }

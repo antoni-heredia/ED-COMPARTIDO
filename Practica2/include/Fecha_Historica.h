@@ -41,11 +41,13 @@ class Fecha_Historica{
     std::string to_s() const;
     Vector_Dinamico<std::string> busqueda(const std::string &cadena) const;
     Fecha_Historica& operator=(const Fecha_Historica & original);
+    bool operator == (const Fecha_Historica & otra);
+    bool operator != (const Fecha_Historica & otra);
 
 
 
 
 };
 std::ostream& operator<< (std::ostream& s, const Fecha_Historica& fecha);
-
+std::istream& operator>> (std::istream& s, const Fecha_Historica& fecha);
 #endif
