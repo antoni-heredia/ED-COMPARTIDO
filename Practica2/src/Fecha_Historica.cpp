@@ -51,10 +51,10 @@ void Fecha_Historica::anadirAcontecimiento(string cadena){
 
 void Fecha_Historica::eliminarAcontecimiento(int posicion){
   assert(num_acont>0);
-  assert(posicion<num_acont);
-  assert(posicion>=0);
+  assert(posicion<num_acont+1);
+  assert(posicion>0);
 
-  for (int i = posicion ; i < num_acont-1; i++)
+  for (int i = posicion-1 ; i < num_acont-1; i++)
     vector[i] = vector[i+1];
 
   num_acont = num_acont-1;
@@ -146,14 +146,19 @@ Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) con
 //un booleano y pasando el vector donde guardar las coincidencias por parametro)
   Vector_Dinamico<std::string> encontrados;
   int acontecimientos_encontrados = 0;
+
 //nose si seria mejor hacerlos aumentando de 1 en 1 porque la clase vector tiene
 //solo la variable del tamaño del vector y no una con numero de elementos utilizados
+
   for(int i = 0; i < num_acont; i++){
-    //se mira si el string de la posicion i contiene la cadena buscada.
+
+    //se mira si el string de la posicion i contiene la cadena buscada
     if(vector[i].find(cadena) != vector[i].npos){
+
       //Si el vector de encontrados tiene el mimso tamaño que los aconteciemtos
       //encontrados hay que aumentarlo
       if(encontrados.size() == acontecimientos_encontrados){
+
         //si es la primera vez que se encuntra una conincidencia se aumenta a 1
         if(acontecimientos_encontrados == 0){
           encontrados.resize(1);
@@ -176,22 +181,26 @@ Vector_Dinamico<std::string> Fecha_Historica::busqueda(const string &cadena) con
 
   return encontrados;
 }
+
 Fecha_Historica& Fecha_Historica::operator=(const Fecha_Historica & original){
   if (&original!=this){
     copia(original);
   }
   return *this;
 }
+
 Fecha_Historica::Fecha_Historica(const Fecha_Historica & f){
   copia(f);
 }
+
 void Fecha_Historica::copia(const Fecha_Historica & f){
   num_acont = f.getNumeroAconteciemientos();
   anio = f.getAnio();
-  vector.resize(num_acont);
+  vector.resize(f.vector.size());
   for (int i = 0;i < num_acont;i++)
     vector[i] = f.getAcontecimientos()[i];
 }
+
 ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
   s << fecha.getAnio();
   Vector_Dinamico<string> vector = fecha.getAcontecimientos();
@@ -219,7 +228,9 @@ int main(int argc, char *argv[]){
   cout <<prueba2.to_s();
   prueba3 = prueba2;
   cout << "PRUEBA3 ASIGNACION"<<endl;
-  cout << prueba3;
+  prueba3.eliminarAcontecimiento(7);
+  prueba3.eliminarAcontecimiento(1);
+  cout << prueba3.to_s();
 
   return 0;
 }
