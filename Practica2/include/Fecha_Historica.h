@@ -21,6 +21,9 @@ class Fecha_Historica{
     bool leerString(std::string cadena);
     bool leerFichero(const char* fichero);
     void copia(const Fecha_Historica & f);
+    void censurarString(std::string &censurado, const std::string &cadena);
+    void mostrarErrorFormatoFecha() const;
+
 
   public:
 

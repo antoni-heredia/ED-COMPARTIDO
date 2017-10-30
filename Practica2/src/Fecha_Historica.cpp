@@ -75,7 +75,7 @@ bool Fecha_Historica::leerFichero(const char* direccion_fichero){
     fichero.close();
 
   }else{
-    cerr << "Error al acceder al fichero." << endl;
+    cerr << "¡¡Error al acceder al fichero "<< direccion_fichero << "!!" << endl;
     estado = false;
   }
 
@@ -99,33 +99,37 @@ bool Fecha_Historica::leerString(string cadena){
       //anio
       anio = stoi(cadena.substr(0,posicion));
       num_acont = 0;
-      assert(to_string(anio) == cadena.substr(0,posicion));
-      //se borra del string la parte que corresponde con el anio que es el primer
-      // token
-      cadena.erase(0,posicion+1);
-
-      //Se actualiza la nueva posocion del delimitador y se comprueba que no sea
-      //el final del string.
-      while( (posicion = cadena.find(delimitador)) != cadena.npos){
-
-        //se añade el acontecimiento hasta llegar al sigiente delimitador
-        anadirAcontecimiento(cadena.substr(0,posicion));
-
-        //se borra este aconteciento del string
+      if(to_string(anio) == cadena.substr(0,posicion)){
+        assert(to_string(anio) == cadena.substr(0,posicion));
+        //se borra del string la parte que corresponde con el anio que es el primer
+        // token
         cadena.erase(0,posicion+1);
 
-      }
-      //se añade el ultimo
-      anadirAcontecimiento(cadena.substr(0,posicion));
+        //Se actualiza la nueva posocion del delimitador y se comprueba que no sea
+        //el final del string.
+        while( (posicion = cadena.find(delimitador)) != cadena.npos){
 
+          //se añade el acontecimiento hasta llegar al sigiente delimitador
+          anadirAcontecimiento(cadena.substr(0,posicion));
+
+          //se borra este aconteciento del string
+          cadena.erase(0,posicion+1);
+
+        }
+        //se añade el ultimo
+        anadirAcontecimiento(cadena.substr(0,posicion));
+    }else{
+      mostrarErrorFormatoFecha();
+      estado = false;
+    }
     //excepcion generica cuando se da un error como por ejempos desbordamiento
     //en el entero anio salta y pone el estado a false
     }catch(...){
-        cerr << "Error en el formato de la fecha historica"<< endl;
+        mostrarErrorFormatoFecha();
         estado = false;
     }
   }else{
-    cerr << "Error en el formato de la fecha historica"<< endl;
+    mostrarErrorFormatoFecha();
     estado = false;
   }
 
@@ -208,6 +212,25 @@ ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
     s << "#" << vector[i];
   s <<endl;
   return s;
+}
+
+void Fecha_Historica::censurarString(string &censurado, const string &cadena){
+  size_t posicion_inicio = 0;
+  //sustituimos por 4 * para no dar pistas sobre la palabra que es
+  string sustituto = "****";
+
+  //se actualiza posicion y se mira que no se la ultima posicion en ese caso
+  //ya estaria todo el string censurado y finaliza
+  while ((posicion_inicio = censurado.find(cadena,posicion_inicio)) != censurado.npos){
+    //remplaza desde la posicion_incio
+    censurado.replace(posicion_inicio,cadena.size(),sustituto);
+    //le suma a la posicion el tamaño de la cadena por la que sustituimos para
+    //buscar la siguiente coincidencia
+    posicion_inicio += sustituto.size();
+  }
+}
+void Fecha_Historica::mostrarErrorFormatoFecha() const{
+  cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
 int main(int argc, char *argv[]){
 
