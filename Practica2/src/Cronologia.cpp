@@ -1,5 +1,6 @@
 #include "Cronologia.h"
 #include <assert.h>
+#include <cctype>
 using namespace std;
 
 
@@ -45,12 +46,16 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
   fichero.open(direccion_fichero);
 
   if(fichero){
-    getline(fichero,linea);
-    aniadirFecha(Fecha_Historica(linea));
+    getline(fichero,linea,'\n');
+    cout << linea << endl;
 
-    while(!fichero.eof()){
-      getline(fichero,linea);
+    aniadirFecha(Fecha_Historica(linea));
+    int c = fichero.peek();
+    while(c != EOF){
+      getline(fichero,linea,'\n');
       aniadirFecha(Fecha_Historica(linea));
+      cout << linea << endl;
+      c = fichero.peek();
     }
 
     fichero.close();

@@ -72,12 +72,6 @@ bool Fecha_Historica::leerFichero(const char* direccion_fichero){
 
   if(fichero){
 
-    getline(fichero,linea);
-    estado = leerString(linea);
-    fichero.close();
-
-  }else{
-    cerr << "¡¡Error al acceder al fichero "<< direccion_fichero << "!!" << endl;
     estado = false;
   }
 
