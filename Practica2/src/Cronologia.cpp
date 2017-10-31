@@ -121,6 +121,9 @@ void Cronologia::aniadirFechaDes(Fecha_Historica fecha){
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
    Fecha_Historica a_desplazar;
    int i;
+   if(num_fechas == vector_cronologico.size())
+     vector_cronologico.resize((vector_cronologico.size()*1.2)+1);
+
     for (i=num_fechas; i>0 && fecha.getAnio() < vector_cronologico[i-1].getAnio(); i--)
       vector_cronologico[i] = vector_cronologico[i-1];
     vector_cronologico[i] = fecha;
