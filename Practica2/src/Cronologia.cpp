@@ -57,7 +57,19 @@ Vector_Dinamico<std::string> Cronologia::busqueda(int fecha,const std::string ca
 
   return vector_cronologico[pos_ano].busqueda(cadena);
 }
+void Cronologia::BorrarFechaHistorica(int anio){
+  assert(num_fechas>0);
+  assert(anio<num_fechas+1);
+  assert(anio>0);
 
+  int pos_ano = existeAnio(anio);
+  assert(pos_ano != -1);
+  
+  for (int i = pos_ano-1 ; i < num_fechas-1; i++)
+    vector_cronologico[i] = vector_cronologico[i+1];
+
+  num_fechas = num_fechas-1;
+}
 Cronologia Cronologia::busqueda(std::string cadena){
 
   Cronologia c_aux;
@@ -77,7 +89,7 @@ Cronologia Cronologia::busqueda(std::string cadena){
       c_aux.aniadirFecha(f_aux);
     }
   }
-  
+
   return c_aux;
 }
 
