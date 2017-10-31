@@ -17,5 +17,9 @@ int main(int argc, char *argv[]){
   Fecha_Historica fecha;
   fecha = copia.busqueda(2011);
   cout << fecha.to_s();
+
+
+  Fecha_Historica fecha2(argv[1]);
+  cout << fecha2.to_s();
   return 0;
 }
