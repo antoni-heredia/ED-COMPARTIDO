@@ -95,6 +95,9 @@ Cronologia Cronologia::busqueda(std::string cadena){
   return c_aux;
 
 }
+bool esAscendente(){
+  return orden_asc;
+}
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
 
   int pos_ano = existeAnio(fecha.getAnio());
