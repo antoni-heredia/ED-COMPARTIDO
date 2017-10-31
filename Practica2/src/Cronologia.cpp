@@ -9,21 +9,23 @@ Cronologia::Cronologia(){
 }
 
 Cronologia::Cronologia(const char *  fichero) {
+  *this = Cronologia(fichero, true);
+}
+
+
+Cronologia::Cronologia(const char * fichero,bool orden_asc){
   bool estado = true;
   num_fechas = 0;
   estado = leerFichero(fichero);
+  orden_asc = orden_asc;
 
-  ordenarCronologiaAsc();
-  orden_asc = true;
+  if(!orden_asc)
+    ordenarCronologiaDesc();
+  else
+    ordenarCronologiaAsc();
 
   assert(estado);
 }
-
-/*
-Cronologia::Cronologia(const * char fichero,bool orden_asc) : vector_cronologico= new Fecha_Historica(fichero){
-
-}
-*/
 
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
   //Usamos esta comparacion para evitar realizar el resize de uno en uno
@@ -47,14 +49,12 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
 
   if(fichero){
     getline(fichero,linea,'\n');
-    cout << linea << endl;
 
     aniadirFecha(Fecha_Historica(linea));
     int c = fichero.peek();
     while(c != EOF){
       getline(fichero,linea,'\n');
       aniadirFecha(Fecha_Historica(linea));
-      cout << linea << endl;
       c = fichero.peek();
     }
 
@@ -68,15 +68,35 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
 }
 
 void Cronologia::ordenarCronologiaAsc(){
-  Fecha_Historica temp;
-  for (int i=1; i<num_fechas; i++)
-    for(int j=0 ; j<  num_fechas - 1; j++)
-      if (vector_cronologico[j] > vector_cronologico[j+1]){
-        temp = vector_cronologico[j];
-        vector_cronologico[j] = vector_cronologico[j+1];
-        vector_cronologico[j+1] = temp;
+  bool cambio = true;
+  Fecha_Historica intercambia;
+  for (int izda = 0; izda < num_fechas && cambio; izda++){
+    cambio = false;
+    for (int i = num_fechas-1 ; i > izda ; i--){
+      if (vector_cronologico[i] < vector_cronologico[i-1]){
+        cambio = true;
+        intercambia = vector_cronologico[i];
+        vector_cronologico[i] = vector_cronologico[i-1];
+        vector_cronologico[i-1] = intercambia;
       }
+    }
+  }
+}
 
+void Cronologia::ordenarCronologiaDesc(){
+  bool cambio = true;
+  Fecha_Historica intercambia;
+  for (int izda = 0; izda < num_fechas && cambio; izda++){
+    cambio = false;
+    for (int i = num_fechas-1 ; i > izda ; i--){
+      if (vector_cronologico[i] > vector_cronologico[i-1]){
+        cambio = true;
+        intercambia = vector_cronologico[i];
+        vector_cronologico[i] = vector_cronologico[i-1];
+        vector_cronologico[i-1] = intercambia;
+      }
+    }
+  }
 }
 
 std::string Cronologia::to_s()const {
@@ -88,7 +108,7 @@ std::string Cronologia::to_s()const {
 }
 
 int main(int argc, char *argv[]){
-  Cronologia crono(argv[1]);
+  Cronologia crono(argv[1], false);
   cout << crono.to_s();
   return 0;
 }
