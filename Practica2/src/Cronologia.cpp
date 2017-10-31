@@ -5,10 +5,12 @@ using namespace std;
 
 
 Cronologia::Cronologia(){
+  num_fechas = 0;
   orden_asc = true;
 }
 
 Cronologia::Cronologia(const char *  fichero) {
+  num_fechas = 0;
   *this = Cronologia(fichero, true);
 }
 
@@ -47,7 +49,7 @@ Fecha_Historica Cronologia::busqueda(int fecha){
   int pos_ano = existeAnio(fecha);
   assert(pos_ano != -1);
 
-  return vector_cronologico[pos_ano];
+  return vector_cronologico[pos_ano-1];
 }
 
 Vector_Dinamico<std::string> Cronologia::busqueda(int fecha,const std::string cadena){
@@ -71,35 +73,36 @@ void Cronologia::BorrarFechaHistorica(int anio){
 
   num_fechas = num_fechas-1;
 }
-/*
+
 Cronologia Cronologia::busqueda(std::string cadena){
 
   Cronologia c_aux;
   int a_aux;
 
   for(int i = 0; i < num_fechas; i++){
-    Vector_Dinamico< std::string > 	v_aux;
-    if(v_aux == 0){
+    Vector_Dinamico< std::string > 	v_aux = vector_cronologico[i].busqueda(cadena);
+    if(v_aux.size() > 0){
       Fecha_Historica f_aux;
-      v_aux = vector_cronologico[i].busqueda(cadena);
       a_aux = vector_cronologico[i].getAnio();
       f_aux.cambiarAnio(a_aux);
-      for(int i = 0; i<v_aux.size(); i++)
-        f_aux.anadirAcontecimiento(v_aux[i]);
-
+      for(int x = 0; x<v_aux.size(); x++){
+        f_aux.anadirAcontecimiento(v_aux[x]);
+      }
       c_aux.aniadirFecha(f_aux);
     }
   }
 
   return c_aux;
+
 }
-*/
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
+
   int pos_ano = existeAnio(fecha.getAnio());
 
   if(pos_ano == -1){
     //Usamos esta comparacion para evitar realizar el resize de uno en uno
     //lo hago porcetualmente(con un factor de 0.2)
+
     if(num_fechas == vector_cronologico.size())
       vector_cronologico.resize((vector_cronologico.size()*1.2)+1);
 
