@@ -42,6 +42,45 @@ void Cronologia::copia(const Cronologia & original){
 
 }
 
+Fecha_Historica Cronologia::busqueda(int fecha){
+
+  int pos_ano = existeAnio(fecha);
+  assert(pos_ano != -1);
+
+  return vector_cronologico[pos_ano];
+}
+
+Vector_Dinamico<std::string> Cronologia::busqueda(int fecha,const std::string cadena){
+
+  int pos_ano = existeAnio(fecha);
+  assert(pos_ano != -1);
+
+  return vector_cronologico[pos_ano].busqueda(cadena);
+}
+
+Cronologia Cronologia::busqueda(std::string cadena){
+
+  Cronologia c_aux;
+  Vector_Dinamico< std::string > 	v_aux;
+  int a_aux;
+
+  for(int i = 0; i < num_fechas; i++){
+    if(v_aux.size() != 0){
+
+      Fecha_Historica f_aux;
+      v_aux = vector_cronologico[i].busqueda(cadena);
+      a_aux = vector_cronologico[i].getAnio();
+      f_aux.cambiarAnio(a_aux);
+      for(int i = 0; i<v_aux.size(); i++)
+        f_aux.anadirAcontecimiento(v_aux[i]);
+
+      c_aux.aniadirFecha(f_aux);
+    }
+  }
+  
+  return c_aux;
+}
+
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
   int pos_ano = existeAnio(fecha.getAnio());
 
