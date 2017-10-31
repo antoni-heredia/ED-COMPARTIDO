@@ -27,9 +27,34 @@ int main(int argc, char *argv[]){
   cout << operador_igual << endl;
 
   cout <<"Operador []" << endl;
-  cout << operador_igual[1] << endl;
-  
+  cout << operador_igual[1] << endl << endl;
 
+  cout <<"Operador +=" << endl;
+  string cadena2 = "Paso algo importante2#Terminamos el proyecto de ED#terminadooo#no esta aun#ya si";
+  operador_igual += cadena2;
+  cout << operador_igual.to_s();
+
+  cout <<"Operador --"<< endl;
+  cout << operador_igual.getNumeroAconteciemientos() << endl;
+  cout << operador_igual-- << endl;
+  cout << operador_igual.getNumeroAconteciemientos() << endl;
+  cout << --operador_igual << endl;
+  cout << operador_igual.getNumeroAconteciemientos() << endl;
+
+  cout <<"--Censurar--" << endl;
+  operador_igual.censurarCadena("proyecto");
+  cout << operador_igual.to_s() << endl;
+
+  cout <<"--Busqueda--"<< endl;
+  Vector_Dinamico<string> vector = operador_igual.busqueda("Paso");
+
+  cout <<"--Encontrados--" << endl;
+  for(int i = 0; i<vector.size();i++)
+    cout << vector[i]<< endl << endl;
+
+    cout <<"--Añadir acontecimiento--" << endl;
+    operador_igual.anadirAcontecimiento("Termino todo");
+    cout << operador_igual.to_s();
 
 
 
