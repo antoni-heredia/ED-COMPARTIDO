@@ -9,8 +9,10 @@
 class Cronologia{
   private:
     Vector_Dinamico<Fecha_Historica> vector_cronologico;
+    int num_fechas;
     bool orden_asc;
-
+    bool leerFichero(const char * direccion_fichero);
+    
   public:
 
     Cronologia();
@@ -25,8 +27,9 @@ class Cronologia{
     Fecha_Historica busqueda(int fecha);
     Vector_Dinamico<std::string> busqueda(int fecha,const std::string cadena);
     Vector_Dinamico<Cronologia> busqueda(std::string cadena);
-    void AnadirFechaHistorica();
+    void aniadirFecha(Fecha_Historica fecha);
     void BorrarFechaHistorica();
+
 
 };
 
