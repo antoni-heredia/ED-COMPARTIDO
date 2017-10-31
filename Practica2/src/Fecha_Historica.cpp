@@ -61,6 +61,14 @@ void Fecha_Historica::eliminarAcontecimiento(int posicion){
 
   num_acont = num_acont-1;
 }
+void Fecha_Historica::eliminarAcontecimientos(const string cadena){
+  for(int i = 0; i < num_acont; i++){
+    if(vector[i].find(cadena) != std::string::npos){
+      eliminarAcontecimiento(i + 1);
+      i--;
+    }
+  }
+}
 
 bool Fecha_Historica::leerFichero(const char* direccion_fichero){
   bool estado = true;

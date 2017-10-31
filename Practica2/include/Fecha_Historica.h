@@ -99,6 +99,8 @@ class Fecha_Historica{
           * \param posicion Entero que indica la posición a borrar.
       */
     void eliminarAcontecimiento(int posicion);
+    void eliminarAcontecimientos(const std::string cadena);
+
     /*!Método: toString
           Devuelve un string con un formato más legible para el usuario.
 	        * \return String que contiene la Fecha_Historica con un formato legible.
