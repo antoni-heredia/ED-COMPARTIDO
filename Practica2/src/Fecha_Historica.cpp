@@ -82,10 +82,8 @@ bool Fecha_Historica::leerFichero(const char* direccion_fichero){
 bool Fecha_Historica::leerString(string cadena){
 
   bool estado = true;
-  char delimitador = '#';
-  string token;
   //buscamos la primerea posocion donde se encuentra el delimitador
-  size_t posicion = cadena.find(delimitador);
+  size_t posicion = cadena.find(DELIMITADOR);
   //se mira que almenos se contenga el delimitador una vez
   if(posicion != cadena.npos ){
 
@@ -103,7 +101,7 @@ bool Fecha_Historica::leerString(string cadena){
 
         //Se actualiza la nueva posocion del delimitador y se comprueba que no sea
         //el final del string.
-        while( (posicion = cadena.find(delimitador)) != cadena.npos){
+        while( (posicion = cadena.find(DELIMITADOR)) != cadena.npos){
 
           //se añade el acontecimiento hasta llegar al sigiente delimitador
           anadirAcontecimiento(cadena.substr(0,posicion));
@@ -201,18 +199,21 @@ const std::string& Fecha_Historica::operator[] (int i) const{
 
 Fecha_Historica& Fecha_Historica::operator+=(const string& acontecimiento){
   size_t posicion,posicion_anterior = 0;
-  posicion = acontecimiento.find('#');
+  posicion = acontecimiento.find(DELIMITADOR);
   anadirAcontecimiento(acontecimiento.substr(posicion_anterior,posicion));
   posicion_anterior = posicion + 1;
 
   while(posicion != acontecimiento.npos){
-    posicion = acontecimiento.find('#',posicion_anterior);
+    posicion = acontecimiento.find(DELIMITADOR,posicion_anterior);
     anadirAcontecimiento(acontecimiento.substr(posicion_anterior,posicion - posicion_anterior));
     posicion_anterior = posicion + 1;
   }
 
   return *this;
 }
+//Fecha_Historica& Fecha_Historica::operator-=(const string& acontecimiento){
+
+//}
 
 
 Fecha_Historica& Fecha_Historica::operator--(){
@@ -238,12 +239,15 @@ void Fecha_Historica::copia(const Fecha_Historica & f){
   for (int i = 0;i < num_acont;i++)
     vector[i] = f.getAcontecimientos()[i];
 }
+char Fecha_Historica::getDelimitador() const{
+  return DELIMITADOR;
+}
 
 ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
   s << fecha.getAnio();
   Vector_Dinamico<string> vector = fecha.getAcontecimientos();
   for (int i = 0; i < fecha.getNumeroAconteciemientos(); i++)
-    s << "#" << vector[i];
+    s << fecha.getDelimitador() << vector[i];
   s <<endl;
   return s;
 }
@@ -253,10 +257,10 @@ ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
 */
 istream& operator>>(istream& s, Fecha_Historica& fecha){
   string acontecimiento;
-  getline(s,acontecimiento,'#');
+  getline(s,acontecimiento,fecha.getDelimitador());
   fecha.anadirAcontecimiento(acontecimiento);
   while(!s.eof()){
-    getline(s,acontecimiento,'#');
+    getline(s,acontecimiento,fecha.getDelimitador());
     fecha.anadirAcontecimiento(acontecimiento);
   }
   return s;
