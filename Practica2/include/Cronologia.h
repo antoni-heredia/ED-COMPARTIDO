@@ -29,17 +29,16 @@ class Cronologia{
     bool leerFichero(const char * direccion_fichero);
     //!Método Privado Auxiliar: existe Año
       /*!
-          .
-		      El formato por defecto del fichero debe ser:
-			         Año#Acontecimiento1#Acontecimiento2#...
-			         Año2#...#...
-			         .
-			         .
-			         .
-          * \param direccion_fichero Indica el fichero que va a ser leido por la función.
-		      * \return Retorna un booleano: true si no hay ningún fallo y el fichero ha sido leido correctamente.
+          Función auxiliar que devuelve un entero si existe el año pasado por argumento o un -1 si no existe.
+          * \param anio Entero que representa el año que queremos comprobar si existe.
+		      * \return Retorna -1 si el año no existe.
       */
     int existeAnio(int anio) const ;
+    //!Método Privado Auxiliar: copia
+      /*!
+          Función que copia una Cronología a partir de otro objeto Cronología.
+          * \param original Objeto Cronología que va a ser copiado.
+      */
     void copia(const Cronologia & original);
   public:
     /*!Construtor: Sin parámetros
@@ -113,7 +112,7 @@ class Cronologia{
           Borra un año y los acontecimientos de un objeto Cronología.
 		      * \param anio Año que va ser borrado de Cronología.
       */
-    void BorrarFechaHistorica();
+    void BorrarFechaHistorica(int anio);
     /*!Método: toString
         Devuelve un string con un formato más legible para el usuario.
 		    * \return String que contiene la Fecha_Historica con un formato legible.
@@ -121,7 +120,6 @@ class Cronologia{
     std::string to_s() const;
 
 };
-
 /*!Método: Sobrecarga del operador de flujo <<
     Almacena el objeto Fecha_Historica con formato fichero (anio#acont1#acont2...)
 */
