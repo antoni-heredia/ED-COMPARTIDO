@@ -193,6 +193,33 @@ Fecha_Historica& Fecha_Historica::operator=(const Fecha_Historica & original){
   return *this;
 }
 
+std::string& Fecha_Historica::operator[](int i){
+  assert (i > 0 && i <= num_acont && num_acont > 0);
+  return vector[i - 1];
+}
+
+const std::string& Fecha_Historica::operator[] (int i) const{
+  assert (i > 0 && i <= num_acont && num_acont > 0);
+  return vector[i - 1];
+}
+
+Fecha_Historica& Fecha_Historica::operator+=(const string& acontecimiento){
+  anadirAcontecimiento(acontecimiento);
+  return *this;
+}
+
+Fecha_Historica& Fecha_Historica::operator--(){
+  assert(num_acont > 0);
+  num_acont--;
+  return *this;
+}
+
+Fecha_Historica Fecha_Historica::operator--(int){
+  Fecha_Historica fecha(*this);
+  --(*this);
+  return fecha;
+}
+
 Fecha_Historica::Fecha_Historica(const Fecha_Historica & f){
   copia(f);
 }
@@ -274,8 +301,8 @@ void Fecha_Historica::censurarString(string &censurado, const string &cadena){
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
-/*
-int main(int argc, char *argv[]){
+
+/*int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
   Vector_Dinamico<string> vector=prueba.busqueda("hola");
@@ -296,9 +323,16 @@ int main(int argc, char *argv[]){
   cout << "PRUEBA3 ASIGNACION"<<endl;
   prueba3.eliminarAcontecimiento(7);
   prueba3.eliminarAcontecimiento(1);
+  prueba3 += "hola maria";
   cout << prueba3.to_s();
-  cin >> prueba3;
+  --prueba3;
   cout << prueba3.to_s();
+  prueba3--;
+  cout << prueba3.to_s();
+
+
+
+
+
   return 0;
-}
-*/
+}*/

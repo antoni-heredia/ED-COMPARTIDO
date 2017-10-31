@@ -43,11 +43,14 @@ class Fecha_Historica{
     Fecha_Historica& operator=(const Fecha_Historica & original);
     bool operator == (const Fecha_Historica & otra);
     bool operator != (const Fecha_Historica & otra);
-
-
-
+    std::string& operator[](int i);
+    const std::string& operator[] (int i) const;
+    Fecha_Historica& operator+=(const std::string& acontecimiento);
+    Fecha_Historica& operator--();
+    Fecha_Historica operator--(int);
 
 };
+
 std::ostream& operator<< (std::ostream& s, const Fecha_Historica& fecha);
 std::istream& operator>> (std::istream& s, const Fecha_Historica& fecha);
 #endif
