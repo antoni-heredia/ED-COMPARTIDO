@@ -40,6 +40,13 @@ class Cronologia{
           * \param original Objeto Cronología que va a ser copiado.
       */
     void copia(const Cronologia & original);
+
+    /*!Método: set
+        Añade una Fecha_Historica a el objeto Cronología en la ultima posicion.
+		    * \param fecha Objeto de tipo Fecha_Historica que va a ser introducido en la Cronología.
+		    * \return Retorna un vector con la información de la búsqueda (acontecimientos generados por la búsqueda).
+    */
+    void aniadirFechaDes(Fecha_Historica fecha);
   public:
     /*!Construtor: Sin parámetros
         Constructor sin parámetros de la clase Cronología. Por defecto: orden_asc = true.
@@ -102,12 +109,7 @@ class Cronologia{
     		* \return Retorna una Cronología con las fechas históricas buscadas.
     */
     Cronologia busqueda(std::string cadena);
-    /*!Método: set
-        Añade una Fecha_Historica a el objeto Cronología.
-		    * \param fecha Objeto de tipo Fecha_Historica que va a ser introducido en la Cronología.
-		    * \return Retorna un vector con la información de la búsqueda (acontecimientos generados por la búsqueda).
-    */
-    void aniadirFecha(Fecha_Historica fecha);
+
     /*!Método: Borrar Fecha_Historica
           Borra un año y los acontecimientos de un objeto Cronología.
 		      * \param anio Año que va ser borrado de Cronología.
@@ -119,11 +121,19 @@ class Cronologia{
       */
     std::string to_s() const;
 
+    /*!Método: set
+        Añade una Fecha_Historica a el objeto Cronología de forma ordenada.
+        * \param fecha Objeto de tipo Fecha_Historica que va a ser introducido en la Cronología.
+        * \return Retorna un vector con la información de la búsqueda (acontecimientos generados por la búsqueda).
+    */
+    void aniadirFecha(Fecha_Historica fecha);
+
+    int getNumeroFechas() const;
+    Vector_Dinamico<Fecha_Historica> getFechas() const;
+
+
 };
-/*!Método: Sobrecarga del operador de flujo <<
-    Almacena el objeto Fecha_Historica con formato fichero (anio#acont1#acont2...)
-*/
-std::istream& operator>>(std::istream& flujo,Cronologia& cronologia);
+
 /*!Método: Sobrecarga del operador de flujo <<
     Introduce en el objeto Fecha_Historica un acontecimiento nuevo.
 */

@@ -62,7 +62,6 @@ Vector_Dinamico<std::string> Cronologia::busqueda(int fecha,const std::string ca
 
 void Cronologia::BorrarFechaHistorica(int anio){
   assert(num_fechas>0);
-  assert(anio<num_fechas+1);
   assert(anio>0);
 
   int pos_ano = existeAnio(anio);
@@ -88,14 +87,14 @@ Cronologia Cronologia::busqueda(std::string cadena){
       for(int x = 0; x<v_aux.size(); x++){
         f_aux.anadirAcontecimiento(v_aux[x]);
       }
-      c_aux.aniadirFecha(f_aux);
+      c_aux.aniadirFechaDes(f_aux);
     }
   }
 
   return c_aux;
 
 }
-void Cronologia::aniadirFecha(Fecha_Historica fecha){
+void Cronologia::aniadirFechaDes(Fecha_Historica fecha){
 
   int pos_ano = existeAnio(fecha.getAnio());
 
@@ -113,6 +112,16 @@ void Cronologia::aniadirFecha(Fecha_Historica fecha){
     for(int i = 0; i < fecha.getNumeroAconteciemientos(); i++)
       vector_cronologico[pos_ano].anadirAcontecimiento(fecha[i]);
   }
+}
+
+void Cronologia::aniadirFecha(Fecha_Historica fecha){
+   Fecha_Historica a_desplazar;
+   int i;
+    for (i=num_fechas; i>0 && fecha.getAnio() < vector_cronologico[i-1].getAnio(); i--)
+      vector_cronologico[i] = vector_cronologico[i-1];
+    vector_cronologico[i] = fecha;
+    num_fechas++;
+
 }
 
 int Cronologia::existeAnio(int anio) const{
@@ -139,11 +148,11 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
   if(fichero){
     getline(fichero,linea,'\n');
 
-    aniadirFecha(Fecha_Historica(linea));
+    aniadirFechaDes(Fecha_Historica(linea));
     int c = fichero.peek();
     while(c != EOF){
       getline(fichero,linea,'\n');
-      aniadirFecha(Fecha_Historica(linea));
+      aniadirFechaDes(Fecha_Historica(linea));
       c = fichero.peek();
     }
 
@@ -162,7 +171,7 @@ void Cronologia::ordenarCronologiaAsc(){
   for (int izda = 0; izda < num_fechas && cambio; izda++){
     cambio = false;
     for (int i = num_fechas-1 ; i > izda ; i--){
-      if (vector_cronologico[i] < vector_cronologico[i-1]){
+      if (vector_cronologico[i].getAnio() < vector_cronologico[i-1].getAnio()){
         cambio = true;
         intercambia = vector_cronologico[i];
         vector_cronologico[i] = vector_cronologico[i-1];
@@ -178,7 +187,7 @@ void Cronologia::ordenarCronologiaDesc(){
   for (int izda = 0; izda < num_fechas && cambio; izda++){
     cambio = false;
     for (int i = num_fechas-1 ; i > izda ; i--){
-      if (vector_cronologico[i] > vector_cronologico[i-1]){
+      if (vector_cronologico[i].getAnio() > vector_cronologico[i-1].getAnio()){
         cambio = true;
         intercambia = vector_cronologico[i];
         vector_cronologico[i] = vector_cronologico[i-1];
@@ -193,5 +202,19 @@ std::string Cronologia::to_s()const {
   string s = "";
   for(int i = 0; i < num_fechas; i++)
     s += vector_cronologico[i].to_s();
+  return s;
+}
+
+int Cronologia::getNumeroFechas() const{
+  return num_fechas;
+}
+
+Vector_Dinamico<Fecha_Historica> Cronologia::getFechas()const{
+  return vector_cronologico;
+}
+
+ostream& operator<<(ostream& s,const Cronologia& cronologia){
+  for (int i = 0; i < cronologia.getNumeroFechas(); i++)
+    s << cronologia.getFechas()[i];
   return s;
 }
