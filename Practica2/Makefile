@@ -7,16 +7,16 @@ CXX = g++
 CPPFLAGS = -Wall -g -c -std=c++11
 AR = ar rvs
 AR_MACOS = libtool -static -o
-all : $(BIN)/Cronologia
+all : $(BIN)/ProgramaPrincipal
+$(BIN)/ProgramaPrincipal : $(OBJ)/Fecha_Historica.o $(OBJ)/Cronologia.o $(OBJ)/ProgramaPrincipal.o
+	$(CXX) -o $(BIN)/ProgramaPrincipal $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o $(OBJ)/ProgramaPrincipal.o -I$(INCLUDE)
 
-$(BIN)/Fecha_Historica : $(OBJ)/Fecha_Historica.o
-	$(CXX) -o $(BIN)/Fecha_Historica $(OBJ)/Fecha_Historica.o -I$(INCLUDE)
+$(OBJ)/ProgramaPrincipal.o : $(SRC)/ProgramaPrincipal.cpp
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/ProgramaPrincipal.o $(SRC)/ProgramaPrincipal.cpp -I$(INCLUDE)
 
 $(OBJ)/Fecha_Historica.o : $(SRC)/Fecha_Historica.cpp $(INCLUDE)/Fecha_Historica.h $(INCLUDE)/adicional.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Fecha_Historica.o $(SRC)/Fecha_Historica.cpp -I$(INCLUDE)
 
-$(BIN)/Cronologia : $(OBJ)/Cronologia.o
-	$(CXX) -o $(BIN)/Cronologia $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o -I$(INCLUDE)
 
 $(OBJ)/Cronologia.o : $(SRC)/Cronologia.cpp $(INCLUDE)/Cronologia.h $(OBJ)/Fecha_Historica.o $(INCLUDE)/adicional2.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Cronologia.o $(SRC)/Cronologia.cpp -I$(INCLUDE)

@@ -57,6 +57,7 @@ Vector_Dinamico<std::string> Cronologia::busqueda(int fecha,const std::string ca
 
   return vector_cronologico[pos_ano].busqueda(cadena);
 }
+
 void Cronologia::BorrarFechaHistorica(int anio){
   assert(num_fechas>0);
   assert(anio<num_fechas+1);
@@ -64,21 +65,21 @@ void Cronologia::BorrarFechaHistorica(int anio){
 
   int pos_ano = existeAnio(anio);
   assert(pos_ano != -1);
-  
+
   for (int i = pos_ano-1 ; i < num_fechas-1; i++)
     vector_cronologico[i] = vector_cronologico[i+1];
 
   num_fechas = num_fechas-1;
 }
+/*
 Cronologia Cronologia::busqueda(std::string cadena){
 
   Cronologia c_aux;
-  Vector_Dinamico< std::string > 	v_aux;
   int a_aux;
 
   for(int i = 0; i < num_fechas; i++){
-    if(v_aux.size() != 0){
-
+    Vector_Dinamico< std::string > 	v_aux;
+    if(v_aux == 0){
       Fecha_Historica f_aux;
       v_aux = vector_cronologico[i].busqueda(cadena);
       a_aux = vector_cronologico[i].getAnio();
@@ -92,7 +93,7 @@ Cronologia Cronologia::busqueda(std::string cadena){
 
   return c_aux;
 }
-
+*/
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
   int pos_ano = existeAnio(fecha.getAnio());
 
@@ -190,14 +191,4 @@ std::string Cronologia::to_s()const {
   for(int i = 0; i < num_fechas; i++)
     s += vector_cronologico[i].to_s();
   return s;
-}
-
-int main(int argc, char *argv[]){
-
-  Cronologia crono(argv[1], false);
-
-  Cronologia copia(crono);
-  //cout << crono.to_s();
-  cout << copia.to_s();
-  return 0;
 }
