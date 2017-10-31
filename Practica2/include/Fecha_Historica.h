@@ -98,7 +98,7 @@ class Fecha_Historica{
       */
     void eliminarAcontecimiento(int posicion);
     /*!Método: toString
-          Devuelve un string con un formato de más legible para el usuario.
+          Devuelve un string con un formato más legible para el usuario.
 	        * \return String que contiene la Fecha_Historica con un formato legible.
       */
     std::string to_s() const;
@@ -114,10 +114,29 @@ class Fecha_Historica{
 	        * \return Devuelve una referencia al objeto this para poder concatenar (1=2=3...).
       */
     Fecha_Historica& operator=(const Fecha_Historica & original);
-
+    /*!Método: Sobrecarga del operador >
+          Permite comparar un objeto Fecha_Historica con el operador >.
+		      * \param otra Objeto que va a ser comparado.
+	        * \return Devuelve true si la fecha es mayor.
+      */
     bool operator > (const Fecha_Historica & otra);
+    /*!Método: Sobrecarga del operador <
+          Permite comparar un objeto Fecha_Historica con el operador <.
+          * \param otra Objeto que va a ser comparado.
+          * \return Devuelve true si la fecha es menor.
+      */
     bool operator < (const Fecha_Historica & otra);
+    /*!Método: Sobrecarga del operador >=
+          Permite comparar un objeto Fecha_Historica con el operador >=.
+		      * \param otra Objeto que va a ser comparado.
+	        * \return Devuelve true si la fecha es mayor o igual.
+      */
     bool operator >= (const Fecha_Historica & otra);
+    /*!Método: Sobrecarga del operador >
+          Permite comparar un objeto Fecha_Historica con el operador <=.
+		      * \param otra Objeto que va a ser comparado.
+	        * \return Devuelve true si la fecha es menor o igual.
+      */
     bool operator <= (const Fecha_Historica & otra);
 
     /*!Método: Sobrecarga del operador ==
