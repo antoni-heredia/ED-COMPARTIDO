@@ -30,7 +30,8 @@ class Cronologia{
     void aniadirFecha(Fecha_Historica fecha);
     void BorrarFechaHistorica();
     std::string to_s() const;
-
+    bool existeAnio() const ;
+    void copia(const Cronologia & original);
 };
 
 std::istream& operator>>(std::istream& flujo,Cronologia& cronologia);

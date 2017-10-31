@@ -27,6 +27,21 @@ Cronologia::Cronologia(const char * fichero,bool orden_asc){
   assert(estado);
 }
 
+Cronologia::Cronologia(const Cronologia & original){
+  copia(original);
+}
+
+void Cronologia::copia(const Cronologia & original){
+
+  num_fechas = original.num_fechas;
+  orden_asc = original.orden_asc;
+  vector_cronologico.resize(original.vector_cronologico.size());
+
+  for(int i = 0; i < num_fechas; i++)
+    vector_cronologico[i] = original.vector_cronologico[i];
+
+}
+
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
   //Usamos esta comparacion para evitar realizar el resize de uno en uno
   //lo hago porcetualmente(con un factor de 0.2)
@@ -39,6 +54,19 @@ void Cronologia::aniadirFecha(Fecha_Historica fecha){
 
 }
 
+int existeAnio(int anio){
+  bool existe = false;
+  int i;
+
+  for(i = 0; i < num_fechas && !existe; i++)
+    if(vector_cronologico[i].getAnio() == anios)
+      existe = true;
+
+  if(!existe)
+    i = -1;
+
+  return i;
+}
 
 bool Cronologia::leerFichero(const char * direccion_fichero){
   bool estado = true;
@@ -108,7 +136,11 @@ std::string Cronologia::to_s()const {
 }
 
 int main(int argc, char *argv[]){
+
   Cronologia crono(argv[1], false);
-  cout << crono.to_s();
+
+  Cronologia copia(crono);
+  //cout << crono.to_s();
+  cout << copia.to_s();
   return 0;
 }
