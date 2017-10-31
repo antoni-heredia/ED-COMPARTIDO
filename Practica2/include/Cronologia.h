@@ -30,7 +30,7 @@ class Cronologia{
     void aniadirFecha(Fecha_Historica fecha);
     void BorrarFechaHistorica();
     std::string to_s() const;
-    bool existeAnio() const ;
+    int existeAnio() const ;
     void copia(const Cronologia & original);
 };
 
