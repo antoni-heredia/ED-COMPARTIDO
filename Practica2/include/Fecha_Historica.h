@@ -7,9 +7,11 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+
+
 class Fecha_Historica{
   private:
-
+    const static char DELIMITADOR = '#';
     int anio;/**< Entero que reseprensenta la fecha de los acontecimientos.*/
     int num_acont;/**< Contiene el número de acontecimientos ocurridos en el año (anio).*/
     Vector_Dinamico<std::string> vector;/**< Vector que contendrá todos los sucesos del año.*/
@@ -177,6 +179,7 @@ class Fecha_Historica{
           */
     Fecha_Historica& operator--();
     Fecha_Historica operator--(int);
+    char getDelimitador() const;
 
 };
 /*!Método: Sobrecarga del operador de flujo <<
