@@ -94,7 +94,14 @@ Cronologia Cronologia::busqueda(std::string cadena){
   return c_aux;
 
 }
+<<<<<<< HEAD
 void Cronologia::aniadirFechaDes(Fecha_Historica fecha){
+=======
+bool esAscendente(){
+  return orden_asc;
+}
+void Cronologia::aniadirFecha(Fecha_Historica fecha){
+>>>>>>> 1eb9cfa84e3604134264ae4a4ee130f9c3d8a658
 
   int pos_ano = existeAnio(fecha.getAnio());
 

@@ -225,9 +225,12 @@ Fecha_Historica& Fecha_Historica::operator+=(const string& acontecimiento){
 
   return *this;
 }
-//Fecha_Historica& Fecha_Historica::operator-=(const string& acontecimiento){
 
-//}
+void Fecha_Historica::censurarCadena(const std::string& cadena){
+  for (int i = 0; i < num_acont; i++)
+    censurarString(vector[i],cadena);
+
+}
 
 
 Fecha_Historica& Fecha_Historica::operator--(){
@@ -340,39 +343,3 @@ bool Fecha_Historica :: operator <= (const Fecha_Historica & otra){
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
-
-/*int main(int argc, char *argv[]){
-
-  Fecha_Historica prueba(argv[1]);
-  Vector_Dinamico<string> vector=prueba.busqueda("hola");
-
-  cout << prueba.to_s();
-  Fecha_Historica prueba2(prueba),prueba3;
-  for (int i = 0; i < vector.size(); i++)
-    cout << vector[i] << endl;
-
-  cout << "Numero de acontecimientos: " << prueba.getNumeroAconteciemientos() << endl;
-  prueba.eliminarAcontecimiento(5);
-  cout << "PRUEBA ELIMINACION"<<endl;
-  cout << prueba.to_s();
-  cout << "Numero de acontecimientos: " << prueba.getNumeroAconteciemientos() << endl;
-  cout << "PRUEBA2 CONSTRUCTOR DE COPIA"<<endl;
-  cout <<prueba2.to_s();
-  prueba3 = prueba2;
-  cout << "PRUEBA3 ASIGNACION"<<endl;
-  prueba3.eliminarAcontecimiento(7);
-  prueba3.eliminarAcontecimiento(1);
-  cout <<"PRUEBA DEL OPERADOR +="<<endl;
-  prueba3 += "hola maria";
-  cout << prueba3.to_s();
-  --prueba3;
-  cout << prueba3.to_s();
-  prueba3--;
-  cout << prueba3.to_s();
-
-
-
-
-
-  return 0;
-}*/

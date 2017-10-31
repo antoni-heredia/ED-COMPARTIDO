@@ -182,6 +182,8 @@ class Fecha_Historica{
     Fecha_Historica& operator--();
     Fecha_Historica operator--(int);
     char getDelimitador() const;
+    void censurarCadena(const std::string& Cadena);
+    
 
 };
 /*!Método: Sobrecarga del operador de flujo <<
