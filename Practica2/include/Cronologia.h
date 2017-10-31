@@ -1,5 +1,8 @@
 /**
   * Clase Cronologia. Representa un conjunto de Fechas Historicas ordenadas.
+   @author     Heredia Castillo, Antonio Jesus
+   @author     Hinojosa Castro, Miguel Angel
+   @ author    Perez Lendinez, Jose Manuel
   */
 #ifndef CRONOLOGIA_H
 #define CRONOLOGIA_H
@@ -81,10 +84,7 @@ class Cronologia{
             Ordena de forma descendente las Fechas Historicas contenidas en el objeto Cronología.
           */
     void ordenarCronologiaDesc();
-    /*!Método: Unión de Cronologías
-       Une los datos de otro objeto Cronología. Para la unión deben de coincidir al menos un año dentro de las Cronologías.
-      */
-    void unirCronologia();
+
     /*!Método: get
         Indica si la Cronología está ordenada ascendentemente (true).
 		    * \return Devuelve true si la Cronología está ordenada de formas ascendente.
@@ -127,8 +127,15 @@ class Cronologia{
         * \return Retorna un vector con la información de la búsqueda (acontecimientos generados por la búsqueda).
     */
     void aniadirFecha(Fecha_Historica fecha);
-
+    /*!Método: get
+        Devuelve el numero de fechas de la Cronología.
+        * \return Retorna el número de fechas total de la Cronología.
+    */
     int getNumeroFechas() const;
+    /*!Método: get
+        Devuelve el vector cronológico.
+        * \return Retorna el vector del objeto Cronología.
+    */
     Vector_Dinamico<Fecha_Historica> getFechas() const;
 
 

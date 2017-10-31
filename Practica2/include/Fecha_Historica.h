@@ -1,5 +1,8 @@
 /**
   * Clase Fecha_Historica. Representa los acontecimientos ocurridos en una fecha especificada.
+  @author     Heredia Castillo, Antonio Jesus
+  @author     Hinojosa Castro, Miguel Angel
+  @ author    Perez Lendinez, Jose Manuel
   */
 #ifndef FECHA_HISTORICA_H
 #define FECHA_HISTORICA_H
@@ -99,6 +102,10 @@ class Fecha_Historica{
           * \param posicion Entero que indica la posición a borrar.
       */
     void eliminarAcontecimiento(int posicion);
+    /*!Método: eliminarAcontecimiento por posicion
+          Función que borra todas las ocurrencias con la cadena pasada por parámetro.
+          * \param cadena Cadena que se quiere borrar.
+      */
     void eliminarAcontecimientos(const std::string cadena);
 
     /*!Método: toString
@@ -173,17 +180,32 @@ class Fecha_Historica{
 	        * \return Devuelve al propio objeto Fecha_Historica.
       */
     Fecha_Historica& operator+=(const std::string& acontecimiento);
-
+    /*!Método: Sobrecarga del operador -=
+              Sobrecarga del operador de Fecha_Historica -=.
+              * \return Devuelve al propio objeto Fecha_Historica.
+          */
     Fecha_Historica& operator-=(const std::string& acontecimiento);
     /*!Método: Sobrecarga del operador --
               Quita el último acontecimiento que ha sido añadido.
     		      * \return Devuelve al propio objeto Fecha_Historica.
           */
     Fecha_Historica& operator--();
+    /*!Método: Sobrecarga del operador --
+              Quita el último acontecimiento que ha sido añadido.
+    		      * \return Devuelve al propio objeto Fecha_Historica.
+          */
     Fecha_Historica operator--(int);
+    /*!Método: get
+              Devuelve el delimitador usado.
+    		      * \return Devuelve el delimitador que es usado en los archivos. Por defecto #.
+          */
     char getDelimitador() const;
+    /*!Método: Censurar Cadena
+      Función  que permite al usuario de la clase censurar una palabra dentro de los acontecimientos de un objeto Fecha_Historica. Por defecto cambia la palabra censurada por ****.
+      * \param Cadena Palabra que va a ser censurada.
+    */
     void censurarCadena(const std::string& Cadena);
-    
+
 
 };
 /*!Método: Sobrecarga del operador de flujo <<
