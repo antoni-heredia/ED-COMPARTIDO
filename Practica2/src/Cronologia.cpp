@@ -43,23 +43,29 @@ void Cronologia::copia(const Cronologia & original){
 }
 
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
-  //Usamos esta comparacion para evitar realizar el resize de uno en uno
-  //lo hago porcetualmente(con un factor de 0.2)
-  if(num_fechas == vector_cronologico.size())
-    vector_cronologico.resize((vector_cronologico.size()*1.2)+1);
+  int pos_ano = existeAnio(fecha.getAnio());
 
-  //añadimos la cadena y sumamos 1 al numero de acontecientos
-  vector_cronologico[num_fechas]=fecha;
-  num_fechas++;
+  if(pos_ano == -1){
+    //Usamos esta comparacion para evitar realizar el resize de uno en uno
+    //lo hago porcetualmente(con un factor de 0.2)
+    if(num_fechas == vector_cronologico.size())
+      vector_cronologico.resize((vector_cronologico.size()*1.2)+1);
 
+    //añadimos la cadena y sumamos 1 al numero de acontecientos
+    vector_cronologico[num_fechas]=fecha;
+    num_fechas++;
+  }else{
+    for(int i = 0; i < fecha.getNumeroAconteciemientos(); i++)
+      vector_cronologico[pos_ano].anadirAcontecimiento(fecha[i]);
+  }
 }
 
-int existeAnio(int anio){
+int Cronologia::existeAnio(int anio) const{
   bool existe = false;
   int i;
 
   for(i = 0; i < num_fechas && !existe; i++)
-    if(vector_cronologico[i].getAnio() == anios)
+    if(vector_cronologico[i].getAnio() == anio)
       existe = true;
 
   if(!existe)

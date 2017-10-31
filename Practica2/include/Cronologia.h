@@ -39,7 +39,7 @@ class Cronologia{
           * \param direccion_fichero Indica el fichero que va a ser leido por la función.
 		      * \return Retorna un booleano: true si no hay ningún fallo y el fichero ha sido leido correctamente.
       */
-    int existeAnio() const ;
+    int existeAnio(int anio) const ;
     void copia(const Cronologia & original);
   public:
     /*!Construtor: Sin parámetros
