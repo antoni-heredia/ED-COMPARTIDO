@@ -39,6 +39,7 @@ void Fecha_Historica::cambiarAnio(int nuevo){
 }
 
 void Fecha_Historica::anadirAcontecimiento(string cadena){
+
   //Usamos esta comparacion para evitar realizar el resize de uno en uno
   //lo hago porcetualmente(con un factor de 0.2)
   if(num_acont == vector.size())
@@ -47,6 +48,7 @@ void Fecha_Historica::anadirAcontecimiento(string cadena){
   //añadimos la cadena y sumamos 1 al numero de acontecientos
   vector[num_acont]=cadena;
   num_acont++;
+
 }
 
 void Fecha_Historica::eliminarAcontecimiento(int posicion){
@@ -313,7 +315,7 @@ void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
 
-int main(int argc, char *argv[]){
+/*int main(int argc, char *argv[]){
 
   Fecha_Historica prueba(argv[1]);
   Vector_Dinamico<string> vector=prueba.busqueda("hola");
@@ -335,7 +337,7 @@ int main(int argc, char *argv[]){
   prueba3.eliminarAcontecimiento(7);
   prueba3.eliminarAcontecimiento(1);
   cout <<"PRUEBA DEL OPERADOR +="<<endl;
-  prueba3 += "hola maria#juan esta aqui#por los pelos#";
+  prueba3 += "hola maria";
   cout << prueba3.to_s();
   --prueba3;
   cout << prueba3.to_s();
@@ -347,4 +349,4 @@ int main(int argc, char *argv[]){
 
 
   return 0;
-}
+}*/
