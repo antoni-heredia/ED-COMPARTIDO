@@ -12,6 +12,7 @@ Cronologia::Cronologia(const char *  fichero) {
   num_fechas = 0;
   estado = leerFichero(fichero);
 
+  ordenarCronologiaAsc();
   orden_asc = true;
 
   assert(estado);
@@ -60,7 +61,29 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
   return estado;
 
 }
+
+void Cronologia::ordenarCronologiaAsc(){
+  Fecha_Historica temp;
+  for (int i=1; i<num_fechas; i++)
+    for(int j=0 ; j<  num_fechas - 1; j++)
+      if (vector_cronologico[j] > vector_cronologico[j+1]){
+        temp = vector_cronologico[j];
+        vector_cronologico[j] = vector_cronologico[j+1];
+        vector_cronologico[j+1] = temp;
+      }
+
+}
+
+std::string Cronologia::to_s()const {
+
+  string s = "";
+  for(int i = 0; i < num_fechas; i++)
+    s += vector_cronologico[i].to_s();
+  return s;
+}
+
 int main(int argc, char *argv[]){
   Cronologia crono(argv[1]);
+  cout << crono.to_s();
   return 0;
 }

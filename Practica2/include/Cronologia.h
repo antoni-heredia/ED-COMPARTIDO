@@ -12,7 +12,7 @@ class Cronologia{
     int num_fechas;
     bool orden_asc;
     bool leerFichero(const char * direccion_fichero);
-    
+
   public:
 
     Cronologia();
@@ -29,7 +29,7 @@ class Cronologia{
     Vector_Dinamico<Cronologia> busqueda(std::string cadena);
     void aniadirFecha(Fecha_Historica fecha);
     void BorrarFechaHistorica();
-
+    std::string to_s() const;
 
 };
 

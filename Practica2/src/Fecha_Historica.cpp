@@ -310,7 +310,21 @@ void Fecha_Historica::censurarString(string &censurado, const string &cadena){
     posicion_inicio += sustituto.size();
   }
 }
+bool Fecha_Historica :: operator > (const Fecha_Historica & otra){
+  return (anio > otra.anio);
+}
 
+bool Fecha_Historica :: operator <= (const Fecha_Historica & otra){
+  return (!((*this)>otra));
+}
+
+ bool Fecha_Historica :: operator < (const Fecha_Historica & otra ){
+   return (!((*this)>otra) && !(anio != otra.anio));
+ }
+
+ bool Fecha_Historica ::  operator >= (const Fecha_Historica & otra){
+   return (!((*this)>otra) || !(anio != otra.anio));
+ }
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
