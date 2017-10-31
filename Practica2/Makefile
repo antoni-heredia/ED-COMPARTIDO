@@ -7,12 +7,12 @@ CXX = g++
 CPPFLAGS = -Wall -g -c -std=c++11
 AR = ar rvs
 AR_MACOS = libtool -static -o
-all : $(BIN)/ProgramaPrincipal $(BIN)/PruebaFecha;
-$(BIN)/ProgramaPrincipal : $(OBJ)/Fecha_Historica.o $(OBJ)/Cronologia.o $(OBJ)/ProgramaPrincipal.o
-	$(CXX) -o $(BIN)/ProgramaPrincipal $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o $(OBJ)/ProgramaPrincipal.o -I$(INCLUDE)
+all : $(BIN)/PruebaCronologia $(BIN)/PruebaFecha;
+$(BIN)/PruebaCronologia : $(OBJ)/Fecha_Historica.o $(OBJ)/Cronologia.o $(OBJ)/PruebaCronologia.o
+	$(CXX) -o $(BIN)/PruebaCronologia $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o $(OBJ)/PruebaCronologia.o -I$(INCLUDE)
 
-$(OBJ)/ProgramaPrincipal.o : $(SRC)/ProgramaPrincipal.cpp
-	$(CXX) $(CPPFLAGS)  -o $(OBJ)/ProgramaPrincipal.o $(SRC)/ProgramaPrincipal.cpp -I$(INCLUDE)
+$(OBJ)/PruebaCronologia.o : $(SRC)/PruebaCronologia.cpp
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/PruebaCronologia.o $(SRC)/PruebaCronologia.cpp -I$(INCLUDE)
 
 $(BIN)/PruebaFecha : $(OBJ)/Fecha_Historica.o $(OBJ)/PruebaFecha.o
 	$(CXX) -o $(BIN)/PruebaFecha $(OBJ)/Fecha_Historica.o $(OBJ)/PruebaFecha.o -I$(INCLUDE)
