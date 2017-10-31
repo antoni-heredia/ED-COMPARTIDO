@@ -46,6 +46,7 @@ class Fecha_Historica{
     std::string& operator[](int i);
     const std::string& operator[] (int i) const;
     Fecha_Historica& operator+=(const std::string& acontecimiento);
+    Fecha_Historica& operator-=(const std::string& acontecimiento);
     Fecha_Historica& operator--();
     Fecha_Historica operator--(int);
 
