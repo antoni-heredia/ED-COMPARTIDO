@@ -32,7 +32,7 @@ class Pila{
       T maximo;
     };
 
-    Cola<elemento> *datos;
+    Cola<elemento> datos;
     int reservados;
     int nelem;
 
@@ -46,7 +46,6 @@ class Pila{
     int getNumeroElementos() const;
     T* getDatos() const;
     T getElementoMaximo() const;
-    int resize(int n);
     bool vacia() const;
     void poner(T c);
     void quitar();

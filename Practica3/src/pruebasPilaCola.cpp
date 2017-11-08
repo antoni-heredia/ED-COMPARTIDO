@@ -4,5 +4,11 @@ using namespace std;
 
 
 int main(){
-  Pila <int> nueva,copia;
+  Pila <int> nueva;
+  nueva.poner(7);
+  nueva.poner(5);
+  nueva.quitar();
+  nueva.poner(23);
+  nueva.poner(4);
+  nueva.quitar();
 }
