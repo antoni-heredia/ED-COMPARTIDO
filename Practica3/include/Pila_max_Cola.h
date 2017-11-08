@@ -10,7 +10,6 @@
 #include <cassert>
 #include <string>
 #include "cola.h"
-#include
 /**
  @brief T.D.A. Pila_max_VD
 
@@ -23,16 +22,15 @@
  La clase Pila será implementada con un vector dinámico.
  También será implementada como un template.
  */
-template< typename T>
-struct elemento {
-    T dato;
-    T maximo;
- };
 
-const int TAM = 10;
 template <class T>
 class Pila{
   private:
+    
+    struct elemento {
+      T dato;
+      T maximo;
+    };
 
     Cola<elemento> *datos;
     int reservados;
@@ -63,6 +61,6 @@ class Pila{
   };
 template <class T>
 std::ostream& operator<< (std::ostream& s, const Pila<T>& pila);
-  #include "Pila_max_VD.cpp"
+  #include "Pila_max_Cola.cpp"
 #endif /* Pila_max_VD.h */
 

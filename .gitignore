@@ -3,3 +3,8 @@ Practica2/bin/
 Practica2/*.save
 Practica2/*.save.*
 Practica2/doc/html/*
+Practica3/obj/
+Practica3/bin/
+Practica3/*.save
+Practica3/*.save.*
+Practica3/doc/html/
