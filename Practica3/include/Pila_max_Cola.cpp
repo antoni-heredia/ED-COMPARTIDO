@@ -6,10 +6,10 @@ Pila<T>::Pila(){
   nelem = 0;
 }
 
-template <class T>
+/*template <class T>
 Pila<T>::~Pila(){
   liberar();
-}
+}*/
 
 template <class T>
 void Pila<T>::liberar(){
@@ -22,41 +22,45 @@ void Pila<T>::liberar(){
 
 template <class T>
 void Pila<T>::poner(T c){
-
   elemento e;
-  
-  if(datos.frente()->maximo >= c)
-    e->maximo = datos.frente()->maximo;
-  else
-    e->maximo = c;
-  
-  e->dato = c;
+  if(!datos.vacia()){
 
-  datos.poner(c);
+    if(datos.frente().maximo >= c)
+      e.maximo = datos.frente().maximo;
+    else
+      e.maximo = c;
+
+  }else{
+    e.maximo = c;
+  }
+
+  e.dato = c;
+  nelem++;
+  datos.poner(e);
 }
 
 template <class T>
 T Pila<T>::tope() const{
 
-  Cola<elemento> *aux = datos;
+  Cola<elemento> aux = datos;
   elemento element = aux.frente();
-  
+
   while(!aux.vacia()){
     element = aux.frente();
     aux.quitar();
   }
 
-  return element;
+  return element.dato;
 
 }
 
 template <class T>
 void Pila<T>::quitar(){
-  
+
   assert(nelem>0);
-  
+
   Cola<elemento> aux(datos);
-  
+
   elemento element;
   do{
     element = aux.frente();
@@ -65,4 +69,3 @@ void Pila<T>::quitar(){
 
   nelem--;
 }
-

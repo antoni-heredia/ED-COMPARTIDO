@@ -22,11 +22,10 @@
  La clase Pila será implementada con un vector dinámico.
  También será implementada como un template.
  */
-
 template <class T>
 class Pila{
   private:
-    
+
     struct elemento {
       T dato;
       T maximo;
@@ -40,7 +39,7 @@ class Pila{
 
     Pila();
     Pila(const Pila<T> & p);
-    ~Pila();
+    //~Pila();
 
     int getReservados() const;
     int getNumeroElementos() const;
@@ -62,4 +61,3 @@ template <class T>
 std::ostream& operator<< (std::ostream& s, const Pila<T>& pila);
   #include "Pila_max_Cola.cpp"
 #endif /* Pila_max_VD.h */
-
