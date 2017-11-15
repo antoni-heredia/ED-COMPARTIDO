@@ -9,10 +9,10 @@ int main(){
   nueva.poner(5);
   cout << "hola" << endl;
 
-  nueva.quitar();
+  //nueva.quitar();
   nueva.poner(23);
   nueva.poner(4);
   nueva.quitar();
-  cout << nueva.tope();
+  cout << nueva.tope() << endl;
 
 }

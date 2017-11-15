@@ -21,7 +21,7 @@ void Pila<T>::liberar(){
 }
 
 template <class T>
-void Pila<T>::poner(T c){
+void Pila<T>::poner(const T& c){
   elemento e;
   if(!datos.vacia()){
 
@@ -58,14 +58,25 @@ template <class T>
 void Pila<T>::quitar(){
 
   assert(nelem>0);
+  Cola<elemento> aux;
+  elemento elemento;
 
-  Cola<elemento> aux(datos);
+  do{
+    aux.poner(datos.frente());
+    datos.quitar();
+  //  aux2
+}while(datos.num_elementos() > 1);
+
+
+
+  datos = aux;
+  /*Cola<elemento> aux(datos);
 
   elemento element;
   do{
     element = aux.frente();
     aux.quitar();
-  }while(!aux.vacia());
+  }while(!aux.vacia());*/
 
   nelem--;
 }

@@ -46,7 +46,7 @@ class Pila{
     T* getDatos() const;
     T getElementoMaximo() const;
     bool vacia() const;
-    void poner(T c);
+    void poner(const T& c);
     void quitar();
     T tope() const;
     std::string to_s();

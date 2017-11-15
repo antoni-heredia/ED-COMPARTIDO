@@ -14,6 +14,7 @@ int main(){
   nueva.poner(23);
   //Pila <int> copia2(nueva);
   nueva.poner(4);
+  nueva.quitar();
   //cout<<copia2;
   cout<<copia;
   //asigna = nueva;
