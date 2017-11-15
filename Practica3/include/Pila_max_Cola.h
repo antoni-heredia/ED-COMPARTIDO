@@ -32,15 +32,12 @@ class Pila{
     };
 
     Cola<elemento> datos;
-    int reservados;
     int nelem;
 
   public:
 
     Pila();
     Pila(const Pila<T> & p);
-    //~Pila();
-
     int getReservados() const;
     int getNumeroElementos() const;
     T* getDatos() const;
@@ -51,11 +48,8 @@ class Pila{
     T tope() const;
     std::string to_s();
     Pila& operator=(const Pila<T> &p);
-
   private:
-
     void copiar(const Pila<T> & p);
-    void liberar();
   };
 template <class T>
 std::ostream& operator<< (std::ostream& s, const Pila<T>& pila);

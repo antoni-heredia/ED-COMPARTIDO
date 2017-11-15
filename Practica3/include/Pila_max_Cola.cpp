@@ -2,22 +2,17 @@ using namespace std;
 
 template <class T>
 Pila<T>::Pila(){
-  reservados = 0;
   nelem = 0;
 }
 
-/*template <class T>
-Pila<T>::~Pila(){
-  liberar();
-}*/
-
 template <class T>
-void Pila<T>::liberar(){
-  if(datos != 0)
-    delete [] datos;
-  datos = 0;
-  nelem = 0;
-  reservados = 0;
+Pila<T>::Pila(const Pila<T> & p){
+  copiar(p);
+}
+template <class T>
+void copiar(const Pila<T> & p){
+  nelem = p.nelem;
+  datos = p.datos;
 }
 
 template <class T>
@@ -55,6 +50,11 @@ T Pila<T>::tope() const{
 }
 
 template <class T>
+bool Pila<T>::vacia() const{
+  return nelem == 0;
+}
+
+template <class T>
 void Pila<T>::quitar(){
 
   assert(nelem>0);
@@ -65,18 +65,16 @@ void Pila<T>::quitar(){
     aux.poner(datos.frente());
     datos.quitar();
   //  aux2
-}while(datos.num_elementos() > 1);
-
-
+  }while(datos.num_elementos() > 1);
 
   datos = aux;
-  /*Cola<elemento> aux(datos);
-
-  elemento element;
-  do{
-    element = aux.frente();
-    aux.quitar();
-  }while(!aux.vacia());*/
-
   nelem--;
+}
+
+template <class T>
+Pila& Pila<T>::operator=(const Pila<T> &p){
+  if (this!=&p){
+    copiar(p);
+  }
+  return *this;
 }
