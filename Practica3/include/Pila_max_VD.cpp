@@ -10,21 +10,11 @@ Pila<T>::Pila(){
 
 template <class T>
 Pila<T>::Pila(const Pila<T> & p){
-  nelem = p.nelem;
-  reservados = p.reservados;
-  if(nelem>0){
-    datos = new T[nelem];
-    for(int i=0; i<nelem; i++){
-      datos[i] = p.datos[i];
-      maximo[i] = p.maximo[i];
-    }
-  }
-  else{
-    nelem = 0;
-    reservados = 0;
-    datos = 0;
-    maximo = 0;
-  }
+  datos = 0;
+  maximo = 0;
+  reservados = 0;
+  nelem = 0;  
+  copiar(p);
 }
 
 template <class T>
@@ -44,12 +34,15 @@ int Pila<T>::getNumeroElementos() const{
 
 template <class T>
 void Pila<T>::liberar(){
-  delete [] datos;
-  delete [] maximo;
-  datos = 0;
-  maximo = 0;
-  nelem = 0;
-  reservados = 0;
+  if(datos != 0){
+    delete [] datos;
+    delete [] maximo;
+    datos = 0;
+    maximo = 0;
+    nelem = 0;
+    reservados = 0;
+  }
+ 
 }
 
 template <class T>
@@ -113,22 +106,29 @@ template <class T>
 int Pila<T>::resize(int n){
     int i, min;
     /* Si piden el mismo tamaño que tiene: no hacer nada */
+
+    
     if (reservados == n)
       return 0;
+
+    
     /* Reserva nuevo espacio */
     T* q = new T [n];
     T* p = new T [n];
     if (p == 0)
       return 1;
+
     /* Copiar los componentes que se mantienen */
     min = (reservados < n ? reservados : n);
     for (i = 0; i < min; i++){
       p[i] = datos[i];
       q[i] = maximo[i];
     }
+    if(datos != 0)
+      delete [] datos;
+    if(maximo != 0)  
+      delete [] maximo;
 
-    delete [] datos;
-    delete [] maximo;
     datos = p;
     maximo = q;
     reservados = n;
@@ -138,11 +138,11 @@ int Pila<T>::resize(int n){
 template <class T>
 string Pila<T>::to_s(){
   string s;
-  /*s +=  "Número de reservados: " + to_string(reservados) + "\n";
+  s +=  "Número de reservados: " + to_string(reservados) + "\n";
   s +=  "Número de elementos: " + to_string(nelem) + "\n";
  s +=  "Elemento máximo de la pila: " + to_string(getElementoMaximo()) + "\n";
   for (int i = 0; i < nelem; i++ )
-    s += "Elemento " + to_string(i) + ": " + to_string(datos[i]) + "\n";*/
+    s += "Elemento " + to_string(i) + ": " + to_string(datos[i]) + "\n";
   return s;
 }
 

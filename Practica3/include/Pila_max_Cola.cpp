@@ -112,19 +112,23 @@ string Pila<T>::to_s() const{
   assert(nelem>0);
   string valores_cola;
   elemento tope;
+  
   Cola<elemento> copia(datos);
+  valores_cola +=  "Número de elementos: " + to_string(nelem) + "\n";
+  valores_cola += "Maximo: " + to_string(getElementoMaximo()) + "\n";
 
+  valores_cola += "DATOS\t|\tMAXIMO\n";
+  valores_cola += "______________________\n";
   do{
     tope = copia.frente();
     valores_cola = valores_cola + to_string(tope.dato) ;
-    valores_cola = valores_cola + " ";
+    valores_cola = valores_cola + "\t|\t";
     valores_cola = valores_cola + to_string(tope.maximo) ;
     valores_cola = valores_cola + "\n";
     copia.quitar();
   }while(!copia.vacia());
 
-  valores_cola += "maximo = ";
-  valores_cola += to_string(tope.maximo) + "\n";
+ 
 
 
   return valores_cola;
