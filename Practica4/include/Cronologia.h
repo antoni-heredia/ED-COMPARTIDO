@@ -14,9 +14,9 @@
 #include <map>
 class Cronologia{
   private:
-  
+
     std::map<int, Fecha_Historica> cronologia;/**< Vector que guarda las fechas históricas de la Cronología.*/
-    
+
     bool leerFichero(const char * direccion_fichero);
     //!Método Privado Auxiliar: existe Año
       /*!
@@ -25,7 +25,7 @@ class Cronologia{
 		      * \return Retorna -1 si el año no existe.
       */
     int existeAnio(int anio) const ;
-    
+
     //!Método Privado Auxiliar: copia
       /*!
           Función que copia una Cronología a partir de otro objeto Cronología.
@@ -34,6 +34,10 @@ class Cronologia{
     void copia(const Cronologia & original);
 
   public:
+
+    typedef typename std::map<int, Fecha_Historica>::iterator iterator;
+    typedef typename std::map<int, Fecha_Historica>::const_iterator const_iterator;
+
     /*!Construtor: Sin parámetros
         Constructor sin parámetros de la clase Cronología. Por defecto: orden_asc = true.
       */
@@ -59,14 +63,14 @@ class Cronologia{
 		    * \param original Objeto Cronología que va a ser copiado.
       */
     Cronologia(const Cronologia& original);
-    /*!Método: Ordenación asc
-        Ordena de forma ascendente las Fechas Historicas contenidas en el objeto Cronología.
-      */
-    void ordenarCronologiaAsc();
-    /*!Método: Ordenación desc
-            Ordena de forma descendente las Fechas Historicas contenidas en el objeto Cronología.
-          */
-    void ordenarCronologiaDesc();
+
+    /*####################### ITERADORES ############################*/
+    iterator begin();
+    iterator end();
+
+    const_iterator begin() const;
+    const_iterator end() const;
+
 
     /*!Método: get
         Indica si la Cronología está ordenada ascendentemente (true).
@@ -78,23 +82,25 @@ class Cronologia{
 		    * \param fecha Año que será buscado en la Cronología.
 		    * \return Retorna los acontecimientos de la fecha buscada.
       */
-    Fecha_Historica busqueda(int fecha);
-    
+    Cronologia busqueda(int fecha);
+    Cronologia busqueda(int anio_inicio,int anio_final);
     /*!Método: Búsqueda de fecha y acontecimiento dentro de esa fecha
         Permite buscar un año dentro del objeto Cronología.
 		    * \param fecha Año que será buscado en la Cronología.
 		    * \param cadena Acontecimiento\s que se quieren buscar en la Cronología.
 		     * \return Retorna un vector con la información de la búsqueda (acontecimientos generados por la búsqueda).
       */
-    Fecha_Historica busqueda(int fecha,const std::string cadena);
+    Cronologia busqueda(const std::string cadena);
 
     /*!Método: Búsqueda de acontecimientos
         Permite buscar uno o varios acontecimientos dentro de la Cronología.
     		* \param cadena Cadena que va a ser buscada en el Cronología.
     		* \return Retorna una Cronología con las fechas históricas buscadas.
     */
-    Cronologia busqueda(std::string cadena);
 
+    void ImprimeCronologia (std::ostream& os);
+
+    Cronologia Union(const Cronologia& c2);
     /*!Método: Borrar Fecha_Historica
           Borra un año y los acontecimientos de un objeto Cronología.
 		      * \param anio Año que va ser borrado de Cronología.
@@ -104,7 +110,7 @@ class Cronologia{
         Devuelve un string con un formato más legible para el usuario.
 		    * \return String que contiene la Fecha_Historica con un formato legible.
       */
-    std::string to_s() const;
+    std::string to_s();
 
     /*!Método: set
         Añade una Fecha_Historica a el objeto Cronología de forma ordenada.
@@ -118,12 +124,11 @@ class Cronologia{
     */
     int getNumeroFechas() const;
 
- 
+
 
 };
 
 /*!Método: Sobrecarga del operador de flujo <<
     Introduce en el objeto Fecha_Historica un acontecimiento nuevo.
 */
-std::ostream& operator<<(std::ostream& flujo,const Cronologia& cronologia);
 #endif

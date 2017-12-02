@@ -142,7 +142,9 @@ void Fecha_Historica::eliminarAcontecimientos(const string& cadena){
 
   }
 }
-
+set<string> Fecha_Historica::getAcontecimientos() const{
+  return fecha.second;
+}
 int Fecha_Historica::getNumeroAconteciemientos() const{
   return static_cast<int>(fecha.second.size());
 }

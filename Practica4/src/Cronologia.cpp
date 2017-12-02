@@ -3,42 +3,88 @@
 #include <cctype>
 using namespace std;
 
-
+/*################# Constructores #################*/
 Cronologia::Cronologia(){}
-
 
 Cronologia::Cronologia(const char * fichero){
   bool estado = true;
   estado = leerFichero(fichero);
   assert(estado);
 }
+
 Cronologia::Cronologia(const Cronologia & original){
   copia(original);
 }
 
 void Cronologia::copia(const Cronologia & original){
-
   cronologia = original.cronologia;
-
 }
 
-Fecha_Historica Cronologia::busqueda(int fecha){
+/*################# Iteradores #################*/
 
-  int pos_ano = existeAnio(fecha);
-  assert(pos_ano != -1);
+Cronologia::iterator Cronologia::begin(){
+  return cronologia.begin();
+}
+Cronologia::iterator Cronologia::end(){
+  return cronologia.end();
+}
 
-  return vector_cronologico[pos_ano-1];
+Cronologia::const_iterator Cronologia::begin() const{
+  return cronologia.cbegin();
+}
+
+Cronologia::const_iterator Cronologia::end() const{
+  return cronologia.cend();
+}
+
+/*################# Funciones Públicas #################*/
+
+Cronologia Cronologia::Union(const Cronologia & c2){
+  Cronologia cUnion;
+  cUnion = *this;
+  for(const_iterator it = c2.begin();it!=c2.end();++it)
+    cUnion.aniadirFecha(it->second);
+
+  return cUnion;
+}
+
+void Cronologia::ImprimeCronologia (ostream &os){
+   Cronologia::const_iterator it;
+   for (it = begin(); it!=end();++it){
+       os<<it->first<<"#";          //año esta en el key del map
+       Fecha_Historica::const_iterator it_ev;
+       for (it_ev=(*it).second.begin(); it_ev!=(*it).second.end();++it_ev)
+        os<<(*it_ev)<<"#";
+   }
+}
+
+Cronologia Cronologia::busqueda(int fecha){
+
+  Cronologia resultado;
+  for(iterator it=begin();it!=end();++it)
+    if(it->first==fecha)
+      resultado.aniadirFecha(it->second);
+  return resultado;
+}
+
+Cronologia Cronologia::busqueda(const std::string cadena){
+
+  Cronologia resultado;
+  for(iterator it=begin();it!=end();++it)
+    if(it->second.busqueda(cadena).getNumeroAconteciemientos()>0)
+      resultado.aniadirFecha(it->second.busqueda(cadena));
+  return resultado;
+}
+
+Cronologia Cronologia::busqueda(int anio_inicio,int anio_final){
+  assert(anio_inicio>anio_final);
+  Cronologia resultado;
+  for(int i = anio_inicio;i!=anio_final;i++)
+    resultado.Union(busqueda(i));
+  return resultado;
 }
 
 /***************************************************** /
-
-Fecha_Historica Cronologia::busqueda(int fecha,const std::string cadena){
-
-  int pos_ano = existeAnio(fecha);
-  assert(pos_ano != -1);
-
-  return vector_cronologico[pos_ano].busqueda(cadena);
-}
 
 void Cronologia::BorrarFechaHistorica(int anio){
   assert(num_fechas>0);
@@ -84,20 +130,18 @@ bool Cronologia::esAscendente(){
 
 /***************************************************/
 int Cronologia::existeAnio(int anio) const{
-  bool existe = false;
-  int i;
-
-  for(i = 0; i < num_fechas && !existe; i++)
-    if(vector_cronologico[i].getAnio() == anio)
-      existe = true;
-
-  if(!existe)
-    i = -1;
-
-  return i;
+  const_iterator it = cronologia.find(anio);
+  return it!=end();
 }
+
 void Cronologia::aniadirFecha(Fecha_Historica fecha){
-   cronologia.insert(std::pair<int,Fecha_Historica>(fecha.getAnio(),fecha));
+
+   int anio = fecha.getAnio();
+
+   if (cronologia.count(anio) > 0)
+     cronologia[anio].unirFechas(fecha);
+   else
+      cronologia.insert(std::pair<int,Fecha_Historica>(anio,fecha));
 }
 
 bool Cronologia::leerFichero(const char * direccion_fichero){
@@ -158,19 +202,19 @@ void Cronologia::ordenarCronologiaDesc(){
     }
   }
 }
-
-std::string Cronologia::to_s()const {
+*/
+std::string Cronologia::to_s() {
 
   string s = "";
-  for(int i = 0; i < num_fechas; i++)
-    s += vector_cronologico[i].to_s();
+  for(iterator it = begin(); it!=end();++it)
+    s += it->second.to_s();
+
   return s;
 }
-
+/*
 int Cronologia::getNumeroFechas() const{
   return num_fechas;
 }
-
 Vector_Dinamico<Fecha_Historica> Cronologia::getFechas()const{
   return vector_cronologico;
 }
@@ -180,4 +224,4 @@ ostream& operator<<(ostream& s,const Cronologia& cronologia){
     s << cronologia.getFechas()[i];
   return s;
 }
-/************************************************************************/
+*/

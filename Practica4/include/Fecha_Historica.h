@@ -88,6 +88,7 @@ class Fecha_Historica{
           * \param cadena Cadena que se quiere borrar.
       */
     void eliminarAcontecimientos(const std::string& cadena);
+    std::set<std::string> getAcontecimientos() const;
     /*!Método: get
           Función que devuelve el número de acontecimientos de la Fecha_Historica.
 		      * \return numero de acontecimientos
@@ -122,16 +123,16 @@ class Fecha_Historica{
 		      * \return Fecha_Historica que contiene los resultados de la búsqueda.
       */
     Fecha_Historica busqueda(const std::string& cadena) const;
-    
-    
+
+
 
     iterator begin();
     iterator end();
-    
+
     const_iterator begin() const;
     const_iterator end() const;
-    
-    
+
+
 
 
 };
