@@ -36,6 +36,7 @@ class Fecha_Historica{
 		      * \return Retorna un booleano que nos indica si ha habido un error al leer el fichero (false) o si por el contrario, todo ha ido bien (true).
       */
     bool leerFichero(const char* fichero);
+
   public:
 
     Fecha_Historica();
@@ -104,13 +105,22 @@ class Fecha_Historica{
               Devuelve el delimitador usado.
     		      * \return Devuelve el delimitador que es usado en los archivos. Por defecto #.
           */
-    char getDelimitador() const;
-    /*!Método: Censurar Cadena
-      Función  que permite al usuario de la clase censurar una palabra dentro de los acontecimientos de un objeto Fecha_Historica. Por defecto cambia la palabra censurada por ****.
-      * \param Cadena Palabra que va a ser censurada.
-    */
-    //void censurarCadena(const std::string& Cadena);
+    //char getDelimitador() const;
 
+    /*!Método: Unir fechas
+      Función  que permite al usuario la unión de dos fechas si estas son del mismo año.
+      * \param anadida Fecha historica que se añade a la que invoca la funcion.
+    */
+    bool unirFechas(const Fecha_Historica& anadida);
+
+    /*!Método: busqueda
+          Permite buscar una cadena dentro de todos los acontecimientos.
+	        * \param Cadena que queremos buscar dentro de los acontecimientos.
+		      * \return Fecha_Historica que contiene los resultados de la búsqueda.
+      */
+    Fecha_Historica busqueda(const std::string& cadena) const;
+    std::set<std::string>::iterator begin() const;
+    std::set<std::string>::iterator end() const;
 
 
 

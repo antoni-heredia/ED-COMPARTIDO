@@ -31,6 +31,7 @@ Fecha_Historica::Fecha_Historica(const Fecha_Historica & f):fecha(f.fecha){
 //operadores
 
 //Funciones privadas
+
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
   cerr << "¡¡Error en el formato de la fecha historica!!"<< endl;
 }
@@ -157,4 +158,40 @@ std::string Fecha_Historica::to_s() const{
 
   s += "\n";
   return s;
+}
+
+bool Fecha_Historica::unirFechas(const Fecha_Historica& anadida){
+  bool estado = false;
+  if(fecha.first == anadida.getAnio()){
+    estado = true;
+    fecha.second.insert(anadida.begin(), anadida.end());
+  }
+  return estado;
+}
+
+Fecha_Historica Fecha_Historica::busqueda(const string& cadena) const{
+//no lo inico con valor mayor que 0 para que si no se encontra ninguna coincidencia
+//tengamos un vector con size()=0 (Nose si seria mejor hacerlo devolviendo
+//un booleano y pasando el vector donde guardar las coincidencias por parametro)
+  Fecha_Historica encontrados(fecha.first);
+
+//nose si seria mejor hacerlos aumentando de 1 en 1 porque la clase vector tiene
+//solo la variable del tamaño del vector y no una con numero de elementos utilizados
+
+  for(set<string>::iterator it = fecha.second.begin(); it != fecha.second.end(); ++it){
+
+    //se mira si el string de la posicion i contiene la cadena buscada
+    if(it->find(cadena) != it->npos)
+      encontrados.anadirAcontecimiento(*it);
+
+  }
+
+  return encontrados;
+}
+
+set<string>::iterator Fecha_Historica::begin() const{
+  return fecha.second.begin();
+}
+set<string>::iterator Fecha_Historica::end() const{
+  return fecha.second.end();
 }
