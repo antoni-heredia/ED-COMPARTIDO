@@ -109,7 +109,7 @@ class Fecha_Historica{
               Devuelve el delimitador usado.
     		      * \return Devuelve el delimitador que es usado en los archivos. Por defecto #.
           */
-    //char getDelimitador() const;
+    char getDelimitador() const;
 
     /*!Método: Unir fechas
       Función  que permite al usuario la unión de dos fechas si estas son del mismo año.
@@ -136,5 +136,6 @@ class Fecha_Historica{
 
 
 };
+std::ostream& operator<<(std::ostream& s, const Fecha_Historica& fecha);
 
 #endif

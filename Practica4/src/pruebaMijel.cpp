@@ -30,4 +30,6 @@ int main(int argc,char* argv[]){
   cout << "Recuento de prueba." << endl;
   cout << recuento.to_s();
   recuento.recuentoCronologia(cout);
+
+  cout << recuento;
 }

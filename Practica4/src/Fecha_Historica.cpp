@@ -30,7 +30,13 @@ Fecha_Historica::Fecha_Historica(const char* direccion_fichero){
 Fecha_Historica::Fecha_Historica(const Fecha_Historica & f):fecha(f.fecha){
 }
 //operadores
-
+ostream& operator<<(ostream& s, const Fecha_Historica& fecha){
+  s << fecha.getAnio();
+  for (Fecha_Historica::iterator it = fecha.begin() ; it != fecha.end() ; ++it)
+    s << fecha.getDelimitador() << *it;
+  s <<endl;
+  return s;
+}
 //Funciones privadas
 
 void Fecha_Historica::mostrarErrorFormatoFecha() const{
@@ -111,6 +117,9 @@ bool Fecha_Historica::leerFichero(const char* direccion_fichero){
 }
 
 //Publicas
+char Fecha_Historica::getDelimitador() const {
+  return DELIMITADOR;
+}
 int Fecha_Historica::getAnio() const {
   return fecha.first;
 }
@@ -195,6 +204,7 @@ Fecha_Historica Fecha_Historica::busqueda(const string& cadena) const{
 Fecha_Historica::iterator Fecha_Historica::begin(){
   return fecha.second.begin();
 }
+
 Fecha_Historica::iterator Fecha_Historica::end(){
   return fecha.second.end();
 }

@@ -132,7 +132,7 @@ class Cronologia{
 
 
 };
-
+std::ostream& operator<<(std::ostream& os,const Cronologia& cronologia);
 /*!Método: Sobrecarga del operador de flujo <<
     Introduce en el objeto Fecha_Historica un acontecimiento nuevo.
 */

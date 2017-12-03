@@ -99,7 +99,7 @@ void Cronologia::recuentoCronologia(std::ostream& os){
     os << "Numero medio de acontecimientos por año: " << numero_eventos / numero_anios << endl;
     os << anio_max << " es el año con mas acontecimientos ("<< numero_eventos_max <<" acontecimientos)" << endl;
   }else{
-    os << "No tiene fechas historicas dentro de la cronologia";
+    os << "No tiene fechas historicas dentro de la cronologia" << endl;
   }
 
 
@@ -249,9 +249,10 @@ Vector_Dinamico<Fecha_Historica> Cronologia::getFechas()const{
   return vector_cronologico;
 }
 
-ostream& operator<<(ostream& s,const Cronologia& cronologia){
-  for (int i = 0; i < cronologia.getNumeroFechas(); i++)
-    s << cronologia.getFechas()[i];
-  return s;
-}
+
 */
+ostream& operator<<(ostream& os,const Cronologia& cronologia){
+  for (Cronologia::const_iterator it = cronologia.begin(); it != cronologia.end(); ++it)
+    os << it->second;
+  return os;
+}
