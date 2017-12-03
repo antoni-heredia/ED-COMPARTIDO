@@ -76,6 +76,35 @@ Cronologia Cronologia::busqueda(const std::string cadena){
   return resultado;
 }
 
+void Cronologia::recuentoCronologia(std::ostream& os){
+  if(getNumeroFechas() > 0){
+    iterator it = begin();
+    int anio_max = it->second.getAnio();
+    int numero_eventos_max = it->second.getNumeroAconteciemientos();
+    int numero_eventos = numero_eventos_max , numero_anios = getNumeroFechas();
+
+    ++it;
+    while (it != end()){
+      int nuevo_evento = it->second.getNumeroAconteciemientos();
+      if(nuevo_evento > numero_eventos_max){
+        anio_max = it->second.getAnio();
+        numero_eventos_max = nuevo_evento;
+      }
+      numero_eventos += nuevo_evento;
+      ++it;
+    }
+
+    os << "Numero de fechas historicas: " << numero_anios << endl;
+    os << "Numero total de acontecimeintos en la cronoliga: " << numero_eventos << endl;
+    os << "Numero medio de acontecimientos por año: " << numero_eventos / numero_anios << endl;
+    os << anio_max << " es el año con mas acontecimientos ("<< numero_eventos_max <<" acontecimientos)" << endl;
+  }else{
+    os << "No tiene fechas historicas dentro de la cronologia";
+  }
+
+
+}
+
 Cronologia Cronologia::busqueda(int anio_inicio,int anio_final){
   assert(anio_inicio>anio_final);
   Cronologia resultado;
@@ -211,10 +240,11 @@ std::string Cronologia::to_s() {
 
   return s;
 }
-/*
+
 int Cronologia::getNumeroFechas() const{
-  return num_fechas;
+  return static_cast<int>(cronologia.size());
 }
+/*
 Vector_Dinamico<Fecha_Historica> Cronologia::getFechas()const{
   return vector_cronologico;
 }

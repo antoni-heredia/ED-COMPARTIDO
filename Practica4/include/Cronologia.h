@@ -123,6 +123,11 @@ class Cronologia{
         * \return Retorna el número de fechas total de la Cronología.
     */
     int getNumeroFechas() const;
+    /*!Método: recuento de cronologia
+        Recorre la cronologia para mosrtar por pantalla los descriptores estadisticos basicos.
+        * \param os flujo de salida de los datos.
+    */
+    void recuentoCronologia(std::ostream& os);
 
 
 

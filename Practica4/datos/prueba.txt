@@ -1,0 +1,8 @@
+1926#Borůvka's algorithm
+1934#Delaunay triangulation developed by Boris Delaunay
+1936#Turing machine, an abstract machine developed by Alan Turing, with others developed the modern notion of algorithm.
+1942#A Fast Fourier Transform algorithm developed by G.C. Danielson and Cornelius Lanczos
+1945#Merge sort developed by John von Neumann
+1900#A Fast Fourier Transform algorithm presented by Carle David Tolmé Runge# prueba 1 # prueba 3
+1947#Simplex algorithm developed by George Dantzig
+1952#Huffman coding developed by David A. Huffman

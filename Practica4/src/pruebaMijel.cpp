@@ -13,6 +13,7 @@ void ImprimeCronologia (const Cronologia &c, ostream &os){
 int main(int argc,char* argv[]){
   Cronologia falete(argv[1]);
   Cronologia pantoja(argv[2]);
+  Cronologia recuento(argv[3]);
 
   cout<<falete.to_s();
   cout<<pantoja.to_s();
@@ -25,4 +26,8 @@ int main(int argc,char* argv[]){
   cout<<"Buscamos la palabra prueba."<<endl;
   Cronologia busquedaTwo = flamencoFusion.busqueda("prueba");
   cout<<busquedaTwo.to_s();
+
+  cout << "Recuento de prueba." << endl;
+  cout << recuento.to_s();
+  recuento.recuentoCronologia(cout);
 }
