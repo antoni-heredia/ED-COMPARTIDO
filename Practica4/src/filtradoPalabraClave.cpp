@@ -7,8 +7,9 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
-  if (argc!=3 && argc!=4){
-      cout<<"Error: debe dar al menos los nombres de dos ficheros con cronologías. "<<endl;
+  if (argc<2 ){
+      cout<<"Error: debe dar al menos el nombre de un fichero con cronología. "<<endl;
+	  cout<<"[Opcional]: una segunda palabra para buscar."<<endl;
       cout<<"[Opcional]: un tercer nombre de fichero para guardar la cronología resultante."<<endl;
       return 0;
    }
@@ -18,27 +19,27 @@ int main(int argc, char * argv[]){
     cout<<"No puedo abrir el fichero "<<argv[1]<<endl;
     return 0;
    }
-   ifstream f2 (argv[2]);
-   if (!f2){
-    cout<<"No puedo abrir el fichero "<<argv[2]<<endl;
-    return 0;
-   }
 
-   Cronologia c1, c2, cUnion;
+   Cronologia c1, c2, cBusqueda;
    f1 >> c1;    // Cargamos los datos de los ficheros en las cronologías.
-   f2 >> c2;
-
-   cUnion = c1.Union(c2);
-
-   if (argc==3)   //No se dio fichero de salida, imprimimos en cout
-      cUnion.ImprimeCronologia(cout);
+   if(argc > 2)
+      cBusqueda = c1.busqueda(argv[2]);
+   else{
+		cout << "Por favor introduzca la palabra a buscar: ";
+		string palabra;
+		cin >> palabra;
+		cBusqueda = c1.busqueda(palabra);
+   }
+   
+   if (argc!=4)   //No se dio fichero de salida, imprimimos en cout
+      cBusqueda.ImprimeCronologia(cout);
    else{
      ofstream fout(argv[3]);
      if (!fout){
       cout<<"No puedo crear el fichero "<<argv[3]<<endl;
       return 0;
      }
-      cUnion.ImprimeCronologia(fout);
+      cBusqueda.ImprimeCronologia(fout);
 
    }
    return 0;

@@ -50,16 +50,14 @@ Cronologia Cronologia::Union(const Cronologia & c2){
 
 void Cronologia::ImprimeCronologia (ostream &os){
    Cronologia::const_iterator it;
-             os << "falete";
 
-  /*for (it = begin(); it!=end();++it){
+  for (it = begin(); it!=end();++it){
        os<<it->first<<"#";          //año esta en el key del map
        Fecha_Historica::const_iterator it_ev;
        for (it_ev=(*it).second.begin(); it_ev!=(*it).second.end();++it_ev)
         os<<(*it_ev)<<"#";
-   }*/
-
-   os << *this;
+		os << endl;
+   }
 }
 
 Cronologia Cronologia::busqueda(int fecha){
@@ -70,6 +68,15 @@ Cronologia Cronologia::busqueda(int fecha){
       resultado.aniadirFecha(it->second);
   return resultado;
 }
+
+Cronologia Cronologia::busqueda(int anio_inicio,int anio_final){
+  assert(anio_inicio<anio_final);
+  Cronologia resultado;
+  for(int i = anio_inicio;i!=anio_final;i++)
+    resultado.Union(busqueda(i));
+  return resultado;
+}
+
 
 Cronologia Cronologia::busqueda(const std::string cadena){
 
@@ -109,15 +116,8 @@ void Cronologia::recuentoCronologia(std::ostream& os){
 
 }
 
-Cronologia Cronologia::busqueda(int anio_inicio,int anio_final){
-  assert(anio_inicio>anio_final);
-  Cronologia resultado;
-  for(int i = anio_inicio;i!=anio_final;i++)
-    resultado.Union(busqueda(i));
-  return resultado;
-}
 
-/***************************************************** /
+/*
 
 void Cronologia::BorrarFechaHistorica(int anio){
   assert(num_fechas>0);
@@ -156,12 +156,8 @@ Cronologia Cronologia::busqueda(std::string cadena){
 bool Cronologia::esAscendente(){
   return orden_asc;
 }
+*/
 
-
-
-
-
-/***************************************************/
 int Cronologia::existeAnio(int anio) const{
   const_iterator it = cronologia.find(anio);
   return it!=end();
@@ -203,39 +199,6 @@ bool Cronologia::leerFichero(const char * direccion_fichero){
   return estado;
 
 }
-/*************************************************** /
-void Cronologia::ordenarCronologiaAsc(){
-  bool cambio = true;
-  Fecha_Historica intercambia;
-  for (int izda = 0; izda < num_fechas && cambio; izda++){
-    cambio = false;
-    for (int i = num_fechas-1 ; i > izda ; i--){
-      if (vector_cronologico[i].getAnio() < vector_cronologico[i-1].getAnio()){
-        cambio = true;
-        intercambia = vector_cronologico[i];
-        vector_cronologico[i] = vector_cronologico[i-1];
-        vector_cronologico[i-1] = intercambia;
-      }
-    }
-  }
-}
-
-void Cronologia::ordenarCronologiaDesc(){
-  bool cambio = true;
-  Fecha_Historica intercambia;
-  for (int izda = 0; izda < num_fechas && cambio; izda++){
-    cambio = false;
-    for (int i = num_fechas-1 ; i > izda ; i--){
-      if (vector_cronologico[i].getAnio() > vector_cronologico[i-1].getAnio()){
-        cambio = true;
-        intercambia = vector_cronologico[i];
-        vector_cronologico[i] = vector_cronologico[i-1];
-        vector_cronologico[i-1] = intercambia;
-      }
-    }
-  }
-}
-*/
 std::string Cronologia::to_s() {
 
   string s = "";
@@ -248,13 +211,7 @@ std::string Cronologia::to_s() {
 int Cronologia::getNumeroFechas() const{
   return static_cast<int>(cronologia.size());
 }
-/*
-Vector_Dinamico<Fecha_Historica> Cronologia::getFechas()const{
-  return vector_cronologico;
-}
 
-
-*/
 ostream& operator<<(ostream& os,const Cronologia& cronologia){
   for (Cronologia::const_iterator it = cronologia.begin(); it != cronologia.end(); ++it)
     os << it->second;
