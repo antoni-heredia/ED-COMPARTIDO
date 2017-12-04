@@ -13,12 +13,12 @@ AR_MACOS = libtool -static -o
 
 
 # ************ Generación de código ************
-all : $(BIN)/pruebaMijel
-$(BIN)/pruebaMijel : $(OBJ)/Fecha_Historica.o $(OBJ)/Cronologia.o $(OBJ)/pruebaMijel.o
-	$(CXX) -o $(BIN)/pruebaMijel $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o $(OBJ)/pruebaMijel.o -I$(INCLUDE)
+all : $(BIN)/union_cronologia
+$(BIN)/union_cronologia : $(OBJ)/Fecha_Historica.o $(OBJ)/Cronologia.o $(OBJ)/union_cronologia.o
+	$(CXX) -o $(BIN)/union_cronologia $(OBJ)/Cronologia.o $(OBJ)/Fecha_Historica.o $(OBJ)/union_cronologia.o -I$(INCLUDE)
 
-$(OBJ)/pruebaMijel.o : $(SRC)/pruebaMijel.cpp
-	$(CXX) $(CPPFLAGS)  -o $(OBJ)/pruebaMijel.o $(SRC)/pruebaMijel.cpp -I$(INCLUDE)
+$(OBJ)/union_cronologia.o : $(SRC)/union_cronologia.cpp
+	$(CXX) $(CPPFLAGS)  -o $(OBJ)/union_cronologia.o $(SRC)/union_cronologia.cpp -I$(INCLUDE)
 
 $(OBJ)/Fecha_Historica.o : $(SRC)/Fecha_Historica.cpp $(INCLUDE)/Fecha_Historica.h
 	$(CXX) $(CPPFLAGS)  -o $(OBJ)/Fecha_Historica.o $(SRC)/Fecha_Historica.cpp -I$(INCLUDE)

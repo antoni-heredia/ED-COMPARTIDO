@@ -50,12 +50,16 @@ Cronologia Cronologia::Union(const Cronologia & c2){
 
 void Cronologia::ImprimeCronologia (ostream &os){
    Cronologia::const_iterator it;
-   for (it = begin(); it!=end();++it){
+             os << "falete";
+
+  /*for (it = begin(); it!=end();++it){
        os<<it->first<<"#";          //año esta en el key del map
        Fecha_Historica::const_iterator it_ev;
        for (it_ev=(*it).second.begin(); it_ev!=(*it).second.end();++it_ev)
         os<<(*it_ev)<<"#";
-   }
+   }*/
+
+   os << *this;
 }
 
 Cronologia Cronologia::busqueda(int fecha){
@@ -255,4 +259,19 @@ ostream& operator<<(ostream& os,const Cronologia& cronologia){
   for (Cronologia::const_iterator it = cronologia.begin(); it != cronologia.end(); ++it)
     os << it->second;
   return os;
+}
+
+istream& operator>>(istream& is,Cronologia& cronologia){
+  string linea;
+  getline(is,linea,'\n');
+
+  cronologia.aniadirFecha(Fecha_Historica(linea));
+  int c = is.peek();
+  while(c != EOF){
+    getline(is,linea,'\n');
+    cronologia.aniadirFecha(Fecha_Historica(linea));
+    c = is.peek();
+  }
+
+  return is;
 }

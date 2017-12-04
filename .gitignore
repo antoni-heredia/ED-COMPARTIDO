@@ -8,3 +8,9 @@ Practica3/bin/
 Practica3/*.save
 Practica3/*.save.*
 Practica3/doc/html/
+Practica4/obj/
+Practica4/bin/
+Practica4/*.save
+Practica4/*.save.*
+Practica4/doc/html/
+.vscode/*
