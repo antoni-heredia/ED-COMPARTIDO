@@ -74,8 +74,8 @@ Cronologia Cronologia::busqueda(int fecha){
 Cronologia Cronologia::busqueda(int anio_inicio,int anio_final){
   assert(anio_inicio<anio_final);
   Cronologia resultado;
-  for(int i = anio_inicio;i!=anio_final;i++)
-    resultado.Union(busqueda(i));
+  for(int i = anio_inicio;i<=anio_final;i++)
+    resultado = resultado.Union(busqueda(i));
   return resultado;
 }
 

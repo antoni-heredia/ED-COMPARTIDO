@@ -22,7 +22,7 @@ int main(int argc, char * argv[]){
    Cronologia c1, cIntervalo;
    f1 >> c1;    // Cargamos los datos de los ficheros en las cronologías.
 
-   cIntervalo = c1.busqueda(stoi(argv[2]),stoi(argv[3]));
+   cIntervalo = c1.busqueda(atoi(argv[2]),atoi(argv[3]));
    if (argc==4)   //No se dio fichero de salida, imprimimos en cout
       cIntervalo.ImprimeCronologia(cout);
    else{
@@ -31,7 +31,7 @@ int main(int argc, char * argv[]){
       cout<<"No puedo crear el fichero "<<argv[3]<<endl;
       return 0;
      }
-      cIntervalo.ImprimeCronologia(fout);
+     cIntervalo.ImprimeCronologia(fout);
 
    }
    return 0;
