@@ -30,7 +30,7 @@ int main(int argc, char * argv[]){
 		cin >> palabra;
 		cBusqueda = c1.busqueda(palabra);
    }
-   
+
    if (argc!=4)   //No se dio fichero de salida, imprimimos en cout
       cBusqueda.ImprimeCronologia(cout);
    else{

@@ -49,15 +49,17 @@ Cronologia Cronologia::Union(const Cronologia & c2){
 }
 
 void Cronologia::ImprimeCronologia (ostream &os){
-   Cronologia::const_iterator it;
-
+   os << *this;
+  /*
+  Cronologia::const_iterator it;
   for (it = begin(); it!=end();++it){
        os<<it->first<<"#";          //año esta en el key del map
        Fecha_Historica::const_iterator it_ev;
        for (it_ev=(*it).second.begin(); it_ev!=(*it).second.end();++it_ev)
         os<<(*it_ev)<<"#";
 		os << endl;
-   }
+  }*/
+
 }
 
 Cronologia Cronologia::busqueda(int fecha){
@@ -105,12 +107,12 @@ void Cronologia::recuentoCronologia(std::ostream& os){
       ++it;
     }
 
-    os << "Numero de fechas historicas: " << numero_anios << endl;
-    os << "Numero total de acontecimeintos en la cronoliga: " << numero_eventos << endl;
-    os << "Numero medio de acontecimientos por año: " << numero_eventos / numero_anios << endl;
+    os << "Número de fechas históricas: " << numero_anios << endl;
+    os << "Número total de acontecimientos en la cronología: " << numero_eventos << endl;
+    os << "Número medio de acontecimientos por año: " << numero_eventos / numero_anios << endl;
     os << anio_max << " es el año con mas acontecimientos ("<< numero_eventos_max <<" acontecimientos)" << endl;
   }else{
-    os << "No tiene fechas historicas dentro de la cronologia" << endl;
+    os << "No tiene fechas históricas dentro de la cronología" << endl;
   }
 
 

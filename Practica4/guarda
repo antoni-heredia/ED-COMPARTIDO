@@ -1,0 +1,48 @@
+1900# prueba 1 # prueba 3#A Fast Fourier Transform algorithm presented by Carle David Tolmé Runge
+1926#Borůvka's algorithm
+1934#Delaunay triangulation developed by Boris Delaunay
+1936#Turing machine, an abstract machine developed by Alan Turing, with others developed the modern notion of algorithm.
+1942#A Fast Fourier Transform algorithm developed by G.C. Danielson and Cornelius Lanczos
+1945#Merge sort developed by John von Neumann
+1947#Simplex algorithm developed by George Dantzig
+1952#Huffman coding developed by David A. Huffman
+1953#Simulated annealing introduced by Nicholas Metropolis
+1954#Radix sort computer algorithm developed by Harold H. Seward
+1956#Kruskal's algorithm developed by Joseph Kruskal
+1957#Bellman–Ford algorithm developed by Richard E. Bellman and L. R. Ford, Jr.#Prim's algorithm developed by Robert Prim
+1959#De Casteljau's algorithm developed by Paul de Casteljau#Dijkstra's algorithm developed by Edsger Dijkstra#Shell sort developed by Donald L. Shell
+1960#Karatsuba multiplication
+1962#AVL trees#Bresenham's line algorithm developed by Jack E. Bresenham#Ford–Fulkerson algorithm developed by L. R. Ford, Jr. and D. R. Fulkerson#Quicksort developed by C. A. R. Hoare
+1964#Heapsort developed by J. W. J. Williams#multigrid methods first proposed by R. P. Fedorenko
+1965#Buchberger's algorithm for computing Gröbner bases developed by Bruno Buchberger#Cocke–Younger–Kasami (CYK) algorithm independently developed by Tadao Kasami#Cooley–Tukey algorithm rediscovered by James Cooley and John Tukey#Levenshtein distance developed by Vladimir Levenshtein
+1966#Dantzig algorithm for shortest path in a graph with negative edges
+1967#Cocke–Younger–Kasami (CYK) algorithm independently developed by Daniel H. Younger#Viterbi algorithm proposed by Andrew Viterbi
+1968#A* graph search algorithm described by Peter Hart, Nils Nilsson, and Bertram Raphael.#Risch algorithm for indefinite integration developed by Robert Henry Risch
+1969#Strassen algorithm for matrix multiplication developed by Volker Strassen
+1970#BFGS method of the quasi-Newton class#Knuth–Bendix completion algorithm developed by Donald Knuth and Peter B. Bendix
+1972#Graham scan developed by Ronald Graham#Red-black trees and B-trees discovered
+1973#Jarvis march algorithm developed by R. A. Jarvis#RSA encryption algorithm discovered by Clifford Cocks
+1974#Pollard's p − 1 algorithm developed by John Pollard
+1975#Aho–Corasick string matching algorithm developed by Alfred V. Aho and Margaret J. Corasick#Cylindrical algebraic decomposition developed by George E. Collins#Genetic algorithms popularized by John Holland#Pollard's rho algorithm developed by John Pollard
+1976#Knuth–Morris–Pratt algorithm developed by Donald Knuth and Vaughan Pratt and independently by J. H. Morris#Salamin–Brent algorithm independently discovered by Eugene Salamin and Richard Brent
+1977#Boyer–Moore string search algorithm for searching the occurrence of a string into another string.#LZ77 algorithm developed by Abraham Lempel and Jacob Ziv#RSA encryption algorithm rediscovered by Ron Rivest, Adi Shamir, and Len Adleman#multigrid methods developed independently by Achi Brandt and Wolfgang Hackbusch
+1978#Bruun's algorithm proposed for powers of two by Georg Bruun#LZ78 algorithm developed from LZ77 by Abraham Lempel and Jacob Ziv
+1979#ID3 decision tree algorithm developed by Ross Quinlan#Khachiyan's ellipsoid method developed by Leonid Khachiyan
+1981#Quadratic sieve developed by Carl Pomerance
+1983#Classification and regression tree (CART) algorithm developed by Leo Breiman, et al.#Simulated annealing developed by S. Kirkpatrick, C. D. Gelatt and M. P. Vecchi
+1984#Karmarkar's interior-point algorithm developed by Narendra Karmarkar#LZW algorithm developed from LZ78 by Terry Welch
+1985#Simulated annealing independently developed by V. Cerny#Splay trees discovered by Sleator and Tarjan
+1986#Blum Blum Shub proposed by L. Blum, M. Blum, and M. Shub
+1987#Fast multipole method developed by Leslie Greengard and Vladimir Rokhlin
+1988#Special number field sieve developed by John Pollard
+1990#General number field sieve developed from SNFS by Carl Pomerance, Joe Buhler, Hendrik Lenstra, and Leonard Adleman
+1991#Wait-free synchronization developed by Maurice Herlihy
+1992#C4.5 algorithm, a descendent of ID3 decision tree algorithm, was developed by Ross Quinlan#Deutsch–Jozsa algorithm proposed by D. Deutsch and Richard Jozsa
+1993#Apriori algorithm developed by Rakesh Agrawal and Ramakrishnan Srikant
+1994#Bootstrap aggregating (bagging) developed by Leo Breiman#Burrows–Wheeler transform developed by Michael Burrows and David Wheeler#Shor's algorithm developed by Peter Shor
+1995#AdaBoost algorithm, the first practical boosting algorithm, was introduced by Yoav Freund and Robert Schapire#Ukkonen's algorithm for construction of suffix trees#soft-margin support vector machine algorithm was published by Vladimir Vapnik and Corinna Cortes. It adds a soft-margin idea to the 1992 algorithm by Boser, Nguyon, Vapnik, and is the algorithm that people usually refer to when saying SVM.
+1996#Bruun's algorithm generalized to arbitrary even composite sizes by H. Murakami#Grover's algorithm developed by Lov K. Grover#RIPEMD-160 developed by Hans Dobbertin, Antoon Bosselaers, and Bart Preneel
+1998#PageRank algorithm was published by Larry Page#rsync algorithm developed by Andrew Tridgell
+1999#Yarrow algorithm designed by Bruce Schneier, John Kelsey, and Niels Ferguson#gradient boosting algorithm developed by Jerome H. Friedman
+2001#Lempel–Ziv–Markov chain algorithm for compression developed by Igor Pavlov#Viola–Jones algorithm for real-time face detection was developed by Paul Viola and Michael Jones.
+2002#AKS primality test developed by Manindra Agrawal, Neeraj Kayal and Nitin Saxena
