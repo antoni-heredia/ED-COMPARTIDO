@@ -6,11 +6,22 @@
 #include <algorithm>
 
 QuienEsQuien::QuienEsQuien(){}
-QuienEsQuien::QuienEsQuien(const QuienEsQuien &quienEsQuien){
-	//TODO :)
+void QuienEsQuien::copiar(const QuienEsQuien &otra){
+	personajes = quienEsQuien.personajes;
+	atributos = quienEsQuien.atributos;
+	tablero = quienEsQuien.tablero;
+	arbol = quienEsQuien.arbol;
+	jugada_actual = quienEsQuien.jugada_actual;
 }
+QuienEsQuien::QuienEsQuien(const QuienEsQuien &quienEsQuien){
+	copiar(quienEsQuien);
+}
+
 QuienEsQuien& QuienEsQuien::operator= (const QuienEsQuien &quienEsQuien){
-	//TODO :)
+	if(this!=quienEsQuien){
+		this->limpiar();
+		copiar(quienEsQuien);
+	}
 	return *this;
 }
 QuienEsQuien::~QuienEsQuien(){
@@ -18,7 +29,11 @@ QuienEsQuien::~QuienEsQuien(){
 }
 
 void QuienEsQuien::limpiar(){
-	//TODO :)
+	personajes.clear();
+	atributos.clear();
+	tablero.clear();
+	arbol.clear();
+	jugada_actual.clear();
 }
 
 template <typename T>
@@ -70,7 +85,7 @@ void QuienEsQuien::mostrar_estructuras_leidas(){
 
 /**
   * @brief Devuelve una copia de la cadena original sin las subcadenas no deseadas.
-  * 
+  *
   * @param cadena_original Cadena de la que se eliminan las subcadenas no deseadas.
   * @param cadena_a_eliminar Subcadena que se busca y se elimina.
   *
@@ -88,13 +103,13 @@ string limpiar_string(string cadena_original,string cadena_a_eliminar){
 
 istream& operator >> (istream& is, QuienEsQuien &quienEsQuien) {
 	quienEsQuien.limpiar();
-	
+
   	if(is.good()){
   		string linea;
     	getline(is, linea, '\n');
 
     	linea = limpiar_string(linea,"\r");
-    	
+
     	while(linea.find('\t') != string::npos ){
     		string atributo = linea.substr(0,linea.find('\t'));
 			quienEsQuien.atributos.push_back(atributo);
@@ -103,7 +118,7 @@ istream& operator >> (istream& is, QuienEsQuien &quienEsQuien) {
 
 		assert(linea ==  "Nombre personaje");
 	}
-	
+
     while( is.good() ) {
     	string linea;
     	getline(is, linea, '\n');
@@ -112,28 +127,28 @@ istream& operator >> (istream& is, QuienEsQuien &quienEsQuien) {
     	//Si la linea contiene algo extrae el personaje. Si no lo es, la ignora.
     	if(linea != ""){;
 	    	vector<bool> atributos_personaje;
-	    	
+
 	    	int indice_atributo=0;
 	    	while(linea.find('\t') != string::npos){
 	    		string valor = linea.substr(0,linea.find('\t'));
-	    		
+
 	    		assert(valor == "0" || valor == "1");
-	    		
+
 	    		bool valor_atributo = valor == "1";
-	    		
+
 	    		atributos_personaje.push_back(valor_atributo);
-				
+
 	    		linea = linea.erase(0,linea.find('\t')+1);
 	    		indice_atributo++;
 			}
-			
+
 			string nombre_personaje = linea;
-	    	
+
 	    	quienEsQuien.personajes.push_back(nombre_personaje);
 	    	quienEsQuien.tablero.push_back(atributos_personaje);
 	    }
   	}
-  	
+
 	return is;
 }
 
@@ -161,15 +176,15 @@ ostream& operator << (ostream& os, const QuienEsQuien &quienEsQuien){
 }
 
 /**
-  * @brief Convierte un n�mero a un vector de bool que corresponde 
+  * @brief Convierte un n�mero a un vector de bool que corresponde
   *        con su representaci�n en binario con un numero de digitos
   *        fijo.
   *
   * @param n N�mero a convertir en binario.
   * @param digitos N�mero de d�gitos de la representaci�n binaria.
   *
-  * @return Vector de booleanos con la representaci�n en binario de @e n 
-  *      con el n�mero de elementos especificado por @e digitos. 
+  * @return Vector de booleanos con la representaci�n en binario de @e n
+  *      con el n�mero de elementos especificado por @e digitos.
 
   */
 vector<bool> convertir_a_vector_bool(int n, int digitos) {
@@ -180,7 +195,7 @@ vector<bool> convertir_a_vector_bool(int n, int digitos) {
     } else{
       ret.push_back(false);
     }
-    n>>=1;  
+    n>>=1;
   }
 
   while(ret.size()<digitos){
@@ -193,9 +208,9 @@ vector<bool> convertir_a_vector_bool(int n, int digitos) {
 
 bintree<Pregunta> QuienEsQuien::crear_arbol()
 {
-	
-	//TODO :D:D
 
+	//TODO :D:D
+	
 	bintree<Pregunta> arbol;
 	return arbol;
 }
@@ -209,14 +224,14 @@ void QuienEsQuien::iniciar_juego(){
 }
 
 set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actual){
-	
+
 	//TODO :)
 	set<string> personajes_levantados;
 	return personajes_levantados;
 }
 
 void escribir_esquema_arbol(ostream& ss,
-					  const bintree<Pregunta>& a, 
+					  const bintree<Pregunta>& a,
 		    		  bintree<Pregunta>::node n,
 					  string& pre){
 	if (n.null()){
@@ -228,7 +243,7 @@ void escribir_esquema_arbol(ostream& ss,
 	    	escribir_esquema_arbol(ss,a, n.right(), pre);
 	     	pre.replace(pre.size()-4, 4, "    ");
 	      	escribir_esquema_arbol (ss,a, n.left(), pre);
-	      	pre.erase(pre.size()-4, 4);    
+	      	pre.erase(pre.size()-4, 4);
 	    }
   	}
 }
