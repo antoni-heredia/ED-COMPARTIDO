@@ -206,44 +206,41 @@ vector<bool> convertir_a_vector_bool(int n, int digitos) {
   return ret;
 }
 
+string QuienEsQuien::resolver_juego(const int numero_atributos){
+	int i,j;
+	int coincidencias;
+	bool encontrado = false;
+	for( i = 0; i < tablero.size() && !encontrado; i++ ){
+		coincidencias=0;
+		for( j = 0; j < numero_atributos; j++ )
+			if( tablero[i][j] )
+				coincidencias++;
+		if( coincidencias == numero_atributos)
+			encontrado = true;
+	}
+	return personajes[i];
+}
+void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int atributo){
 
-void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta,
-	vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo){
+	if (atributo < atributos.size() && !pregunta.null()){
+		int num_personajes_con_atributo = contar_personajes_con_atributo(atributo);
 
-	int derecha = 0, izquierda = 0, personajes_en_juego = 0, resultado;
-	//Contamos los personajes no tumbados
-	for (int i = 0;i < personajes.size(); i++)
-		if(!personajes_tumbados[i]){
-			personajes_en_juego++;
-			resultado = i;
+		if( num_personajes_con_atributo == 1){
+			if( (*pregunta).obtener_num_personajes() > 1 )
+				arbol.insert_left(pregunta, Pregunta(resolver_juego(atributo), num_personajes_con_atributo));
 		}
+		else
+			arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_personajes_con_atributo));
 
-	int atributo_mejor = mejor_atributo(atributos_usados,personajes_tumbados, num_personajes_con_atributo);
-	atributos_usados[atributo_mejor] = true;
+		if( num_personajes_con_atributo == 1 )
+			if( (*pregunta).obtener_num_personajes() > 1 )
+				arbol.insert_right(pregunta, Pregunta(resolver_juego(atributo), num_personajes_con_atributo));
+			else
+				arbol.insert_right(pregunta, Pregunta(atributos[atributo], num_personajes_con_atributo));
 
-	if (atributo_mejor != -1 && !pregunta.null()){
-		//La izquierda será los personajes con el atributo.
-		izquierda = num_personajes_con_atributo;
-		//Calculamos la derecha (personajes sin atributo).
-		derecha = personajes_en_juego - izquierda;
 
-		bintree<Pregunta> aux;
-		if( num_personajes_con_atributo != 1){
-			 aux=bintree<Pregunta>(Pregunta(atributos[atributo_mejor], izquierda));
-		}else
-			aux=bintree<Pregunta>(Pregunta(personajes[resultado], 1));
-
-		arbol.insert_left(pregunta, aux);
-
-		if( num_personajes_con_atributo != 1){
-			 aux=bintree<Pregunta>(Pregunta(atributos[atributo_mejor], derecha));
-		}else
-			aux=bintree<Pregunta>(Pregunta(personajes[resultado], 1));
-		arbol.insert_right(pregunta, aux);
-
-		crear_arbol_recursivo(pregunta.left(), atributos_usados,personajes_tumbados,num_personajes_con_atributo);
-
-		crear_arbol_recursivo(pregunta.right(), atributos_usados,personajes_tumbados,num_personajes_con_atributo);
+		crear_arbol_recursivo(pregunta.left(), 1+atributo);
+		crear_arbol_recursivo(pregunta.right(), 1+atributo);
 	}
 }
 
@@ -252,7 +249,7 @@ int QuienEsQuien::mejor_atributo(vector<bool> & atributos_usados, vector<bool> &
 	contador_ant = 0;
 	for (i = 0; i < atributos.size(); i++){ //Recorremos todos los atributos.
 		if( !atributos_usados[i] ) {//Si no se esta usando el atributo..
-			contador = contar_personajes_con_atributo(i, personajes_tumbados);
+			contador = contar_personajes_con_atributo(i);
 			if( contador > contador_ant ){
 				posicion = i;
 				contador_ant = contador;
@@ -268,26 +265,19 @@ void QuienEsQuien::actualizar_personajes_tumbados(int atributo,vector<bool> & pe
 		if(tablero[i][atributo] )
 			personajes_tumbados[i] = true;
 }
-int QuienEsQuien::contar_personajes_con_atributo(int posicion_atributo, vector<bool> personajes_tumbados){
+int QuienEsQuien::contar_personajes_con_atributo(int posicion_atributo){
 	int i, contador = 0;
-	for (i = 0; i < personajes.size(); i++){ //Recorremos todos los personajes.
-		if(tablero[i][posicion_atributo] && !personajes_tumbados[i]) // Contamos los personajes en juego
+	for ( i = 0; i < personajes.size(); i++ ) //Recorremos todos los personajes.
+		if( tablero[i][posicion_atributo] ) // Contamos los personajes en juego
 			contador++;																														// que tienen el atributo dado.
-	}
 	return contador;
 }
 
 bintree<Pregunta> QuienEsQuien::crear_arbol(){
 
-	int atributo_mejor = 0, num_personajes_con_atributo = 0;
-	vector<bool> atributos_usados(atributos.size(),false);
-	vector<bool> personajes_usados(personajes.size(),false);
+	arbol = bintree<Pregunta>(Pregunta(atributos[0], contar_personajes_con_atributo(0)));
 
-	atributo_mejor = mejor_atributo(atributos_usados,personajes_usados, num_personajes_con_atributo);
-	atributos_usados[atributo_mejor] = true;
-
-	arbol=bintree<Pregunta>(Pregunta(atributos[atributo_mejor], num_personajes_con_atributo));
-	crear_arbol_recursivo(arbol.root(),atributos_usados,personajes_usados, num_personajes_con_atributo);
+	crear_arbol_recursivo(arbol.root(), 1);
 
 	return arbol;
 }

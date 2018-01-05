@@ -63,11 +63,11 @@ private:
 	void copiar(const QuienEsQuien &otra);
 
 public:
+	string resolver_juego(const int numero_atributos);
 	void actualizar_personajes_tumbados(int atributo,vector<bool> & personajes_tumbados);
 	int mejor_atributo(vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int & num_personajes_con_atributo);
-	int contar_personajes_con_atributo(int posicion_atributo, vector<bool> personajes_tumbados);
-	void crear_arbol_recursivo(bintree<Pregunta>::node pregunta, vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo);
-
+	int contar_personajes_con_atributo(int posicion_atributo);
+	void crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int atributo);
 	/**
 	  * @brief Constructor b�sico de la clase
 	  */
