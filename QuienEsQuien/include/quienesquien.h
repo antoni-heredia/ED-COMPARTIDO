@@ -61,7 +61,13 @@ private:
 	  */
 	bintree<Pregunta>::node jugada_actual;
 	void copiar(const QuienEsQuien &otra);
+
 public:
+	void actualizar_personajes_tumbados(int atributo,vector<bool> & personajes_tumbados);
+	int mejor_atributo(vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int & num_personajes_con_atributo);
+	int contar_personajes_con_atributo(int posicion_atributo, vector<bool> personajes_tumbados);
+	void crear_arbol_recursivo(bintree<Pregunta>::node pregunta, vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo);
+
 	/**
 	  * @brief Constructor b�sico de la clase
 	  */

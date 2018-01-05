@@ -34,11 +34,11 @@ documentacion: $(SRC)/main.cpp $(SRC)/pregunta.cpp $(SRC)/quienesquien.cpp $(INC
 
 # ************ Compilación de módulos ************
 $(BIN)/quienesquien: $(OBJ)/main.o $(OBJ)/quienesquien.o
-	$(CXX) $(OBJ)/main.o $(OBJ)/quienesquien.o $(OBJ)/pregunta.o -o $(BIN)/quienesquien $(CPPFLAGS)
+	$(CXX) $(OBJ)/main.o $(OBJ)/quienesquien.o $(OBJ)/pregunta.o -o bin/quienesquien $(CPPFLAGS)
 
 # Creamos los objetos
 $(OBJ)/main.o: $(SRC)/main.cpp $(OBJ)/pregunta.o $(OBJ)/quienesquien.o
-	$(CXX) -c $(SRC)/main.cpp -o $(OBJ)/main.o $(CPPFLAGS)	
+	$(CXX) -c $(SRC)/main.cpp -o $(OBJ)/main.o $(CPPFLAGS)
 
 $(OBJ)/quienesquien.o: $(SRC)/quienesquien.cpp $(OBJ)/pregunta.o
 	$(CXX) -c $(SRC)/quienesquien.cpp -o $(OBJ)/quienesquien.o $(CPPFLAGS)
