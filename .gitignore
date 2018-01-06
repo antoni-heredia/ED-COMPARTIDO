@@ -14,3 +14,4 @@ Practica4/*.save
 Practica4/*.save.*
 Practica4/doc/html/
 .vscode/*
+*.o

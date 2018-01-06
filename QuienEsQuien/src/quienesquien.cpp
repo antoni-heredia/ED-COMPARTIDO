@@ -253,7 +253,7 @@ void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int a
 				}
 
 			}
-
+/*
 		//mira esto
 			//Si cumple es mayor que uno se insterta una nueva pregunta
 		if(cumplen > 1)
@@ -277,10 +277,10 @@ void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int a
 			while (eliminados_no[i])
 				i++;
 			arbol.insert_right(pregunta, Pregunta(personajes[i], no_cumplen));
-		}
+		}*/
 		//mira esto
-		//anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen);
-		//anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen);
+		anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen,1);
+		anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen,0);
 		crear_arbol_recursivo(pregunta.left(), 1+atributo, eliminados_si);
 		crear_arbol_recursivo(pregunta.right(), 1+atributo, eliminados_no);
 
@@ -288,17 +288,22 @@ void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int a
 
 }
 
-void QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones){
+void QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda){
 
 	if(num_elecciones > 1)
-		arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_elecciones));
+		if(esIzquierda)
+			arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_elecciones));
+		else
+			arbol.insert_right(pregunta, Pregunta(atributos[atributo], num_elecciones));
 	else{
 		int i = 0;
 
 		while (eliminados[i])
 			i++;
-
-		arbol.insert_left(pregunta, Pregunta(personajes[i], num_elecciones));
+		if (esIzquierda)
+			arbol.insert_left(pregunta, Pregunta(personajes[i], num_elecciones));
+		else
+			arbol.insert_right(pregunta, Pregunta(personajes[i], num_elecciones));
 	}
 }
 int QuienEsQuien::mejor_atributo(vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo){
