@@ -165,7 +165,7 @@ ostream& operator << (ostream& os, const QuienEsQuien &quienEsQuien){
 
 	//Rellenamos con ceros y unos cada l�nea y al final ponemos el nombre del personaje.
 	for(int indice_personaje=0;indice_personaje<quienEsQuien.personajes.size();indice_personaje++){
-		for(int indice_atributo=0;indice_atributo<quienEsQuien.personajes.size();indice_atributo++){
+		for(int indice_atributo=0;indice_atributo<quienEsQuien.atributos.size();indice_atributo++){
 
 			os  << quienEsQuien.tablero[indice_personaje][indice_atributo] << "\t";
 		}
@@ -220,30 +220,87 @@ string QuienEsQuien::resolver_juego(const int numero_atributos){
 	}
 	return personajes[i];
 }
-void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int atributo){
+void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados){
+	//se comprueba que tiene no es un nodo hoja.
+	if((*pregunta).obtener_num_personajes() > 1){
+		//eliminados_si alamacena los personajes que cumplan la pregunta que corresponda.
+		//eliminados_no alamacena los personajes que no cumplan la pregunta que corresponda.
+		vector<bool> eliminados_si, eliminados_no;
+		//los iniciamos los dos con los datos que nos pasaron en eliminados.
+		eliminados_si = eliminados_no = eliminados;
+		//cumplen almacena el numero de personajes que cumplen la pregunta
+		//no_cumplen almacena el numero de personajes que no cumplen la pregunta
+		int cumplen = 0, no_cumplen = 0;
+		//el for corrige los datos de los personajes de la pregunta anterior eliminar
+		//con la pregunta correspondiente de esta pasada
+		for(int i = 0 ; i < eliminados.size(); i++)
+			//si eliminado es falso quiere decir que ese personaje aun puede ser elegido
+			//asi que pasamos a ver si se cumple esta pregunta
+			if(!eliminados[i]){
+				//Se comprueba que se cumpla la condicion del atributo anterior
+				if(tablero[i][atributo - 1]){
+					//si es verdad se elimina ese personaje de las posibles elecciones que no cumplen
+					// la pregunta y se suma uno al contador que nos muestra el numero de personajes
+					//que pueden ser
+					cumplen++;
+					eliminados_no[i] = true;
+				}else{
+					//si no es verdad se elimina ese personaje de las posibles elecciones que si cumplen
+					// la pregunta y se suma uno al contador que nos muestra el numero de personajes
+					//que no pueden ser
+					no_cumplen++;
+					eliminados_si[i] = true;
+				}
 
-	if (atributo < atributos.size() && !pregunta.null()){
-		int num_personajes_con_atributo = contar_personajes_con_atributo(atributo);
+			}
 
-		if( num_personajes_con_atributo == 1){
-			if( (*pregunta).obtener_num_personajes() > 1 )
-				arbol.insert_left(pregunta, Pregunta(resolver_juego(atributo), num_personajes_con_atributo));
+		//mira esto
+			//Si cumple es mayor que uno se insterta una nueva pregunta
+		if(cumplen > 1)
+			arbol.insert_left(pregunta, Pregunta(atributos[atributo], cumplen));
+		else{
+		//Si no es mayor que uno es que se ha encontrado un personaje que cumple todas
+		//las preguntas y no quedan mas.
+			int i = 0;
+			//Se recorre el vector asta encontrar la posicion en la que tenenemos false
+			//para el personaje que no se ha borrado aun.
+			while (eliminados_si[i])
+				i++;
+				//se inserta el personaje
+			arbol.insert_left(pregunta, Pregunta(personajes[i], cumplen));
 		}
-		else
-			arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_personajes_con_atributo));
 
-		if( num_personajes_con_atributo == 1 )
-			if( (*pregunta).obtener_num_personajes() > 1 )
-				arbol.insert_right(pregunta, Pregunta(resolver_juego(atributo), num_personajes_con_atributo));
-			else
-				arbol.insert_right(pregunta, Pregunta(atributos[atributo], num_personajes_con_atributo));
+		if(no_cumplen > 1)
+			arbol.insert_right(pregunta, Pregunta(atributos[atributo], no_cumplen));
+		else{
+			int i = 0;
+			while (eliminados_no[i])
+				i++;
+			arbol.insert_right(pregunta, Pregunta(personajes[i], no_cumplen));
+		}
+		//mira esto
+		//anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen);
+		//anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen);
+		crear_arbol_recursivo(pregunta.left(), 1+atributo, eliminados_si);
+		crear_arbol_recursivo(pregunta.right(), 1+atributo, eliminados_no);
 
-
-		crear_arbol_recursivo(pregunta.left(), 1+atributo);
-		crear_arbol_recursivo(pregunta.right(), 1+atributo);
 	}
+
 }
 
+void QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones){
+
+	if(num_elecciones > 1)
+		arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_elecciones));
+	else{
+		int i = 0;
+
+		while (eliminados[i])
+			i++;
+
+		arbol.insert_left(pregunta, Pregunta(personajes[i], num_elecciones));
+	}
+}
 int QuienEsQuien::mejor_atributo(vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo){
 	int posicion = -1, contador_ant = 0, contador = 0, i;
 	contador_ant = 0;
@@ -275,9 +332,12 @@ int QuienEsQuien::contar_personajes_con_atributo(int posicion_atributo){
 
 bintree<Pregunta> QuienEsQuien::crear_arbol(){
 
-	arbol = bintree<Pregunta>(Pregunta(atributos[0], contar_personajes_con_atributo(0)));
+	arbol = bintree<Pregunta>(Pregunta(atributos[0], personajes.size()));
+	vector<bool> eliminados;
+	for(int i = 0; i < personajes.size(); i++)
+		eliminados.push_back(false);
 
-	crear_arbol_recursivo(arbol.root(), 1);
+	crear_arbol_recursivo(arbol.root(), 1, eliminados);
 
 	return arbol;
 }
