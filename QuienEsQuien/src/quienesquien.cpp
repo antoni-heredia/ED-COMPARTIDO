@@ -253,32 +253,7 @@ void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int a
 				}
 
 			}
-/*
-		//mira esto
-			//Si cumple es mayor que uno se insterta una nueva pregunta
-		if(cumplen > 1)
-			arbol.insert_left(pregunta, Pregunta(atributos[atributo], cumplen));
-		else{
-		//Si no es mayor que uno es que se ha encontrado un personaje que cumple todas
-		//las preguntas y no quedan mas.
-			int i = 0;
-			//Se recorre el vector asta encontrar la posicion en la que tenenemos false
-			//para el personaje que no se ha borrado aun.
-			while (eliminados_si[i])
-				i++;
-				//se inserta el personaje
-			arbol.insert_left(pregunta, Pregunta(personajes[i], cumplen));
-		}
 
-		if(no_cumplen > 1)
-			arbol.insert_right(pregunta, Pregunta(atributos[atributo], no_cumplen));
-		else{
-			int i = 0;
-			while (eliminados_no[i])
-				i++;
-			arbol.insert_right(pregunta, Pregunta(personajes[i], no_cumplen));
-		}*/
-		//mira esto
 		anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen,1);
 		anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen,0);
 		crear_arbol_recursivo(pregunta.left(), 1+atributo, eliminados_si);
@@ -352,7 +327,23 @@ void QuienEsQuien::usar_arbol(bintree<Pregunta> arbol_nuevo){
 }
 
 void QuienEsQuien::iniciar_juego(){
-	//TODO :)
+	string respuesta_usuario;
+
+	bintree<Pregunta>::node pregunta = arbol.root();
+	while( (*pregunta).obtener_num_personajes() > 1 ){
+		do{
+			cout<<"¿Es "<<(*pregunta).obtener_pregunta()<<""<<endl;
+			getline(cin,respuesta_usuario);
+			//Convierte el string pasado a mayus.
+			transform(respuesta_usuario.begin(), respuesta_usuario.end(),respuesta_usuario.begin(), ::toupper);
+		}while ( respuesta_usuario.compare("SI") && respuesta_usuario.compare("NO"));
+
+		if ( respuesta_usuario.compare("SI") )
+			pregunta = pregunta.right();
+		else
+			pregunta = pregunta.left();
+	}
+	cout<< "Respuesta: "<<(*pregunta).obtener_personaje()<<endl;
 }
 
 set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actual){
