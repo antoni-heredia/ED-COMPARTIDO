@@ -67,10 +67,16 @@ private:
 	  * @brief Este metodo devuelve la cantidad de nodos que hay desde un nodo hacia abajo
 	  *
 	  *
-		*	@param El nodo apartir del cual se quiere contar
+		*	@param n El nodo apartir del cual se quiere contar
+		* @param profundidad la profundidad a la que se encuentra el nodo actual
+		* @param cantidad aqui se ira sumando la cantidad total de nodos recorridos
+		*
 	  * @pre El arbol de preguntas debe haber sido construido previamente.
 	*/
 	void  ver_profundidad(bintree<Pregunta>::node n, int & profundidad, int & cantidad);
+
+
+	void cuales_quedan(bintree<Pregunta>::node n, set<string> & personajes_levantados);
 public:
 	string resolver_juego(const int numero_atributos);
 	void actualizar_personajes_tumbados(int atributo,vector<bool> & personajes_tumbados);

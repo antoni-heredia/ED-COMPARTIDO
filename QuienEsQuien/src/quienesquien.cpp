@@ -361,7 +361,12 @@ void QuienEsQuien::iniciar_juego(){
 	bintree<Pregunta>::node pregunta = arbol.root();
 	while( (*pregunta).obtener_num_personajes() > 1 ){
 		do{
-			cout<<"¿Es "<<(*pregunta).obtener_pregunta()<<""<<endl;
+			set<string> personajes_levantados =  informacion_jugada(pregunta);
+			cout << "Los personajes que quedan son: " << endl;
+			for( set<string>::iterator iter = personajes_levantados.begin() ; iter != personajes_levantados.end() ; ++iter ) 
+				cout << "\t" << *iter << endl ;
+
+			cout<<"¿Es "<<(*pregunta).obtener_pregunta()<<" ?"<<endl;
 			getline(cin,respuesta_usuario);
 			//Convierte el string pasado a mayus.
 			transform(respuesta_usuario.begin(), respuesta_usuario.end(),respuesta_usuario.begin(), ::toupper);
@@ -377,10 +382,25 @@ void QuienEsQuien::iniciar_juego(){
 
 set<string> QuienEsQuien::informacion_jugada(bintree<Pregunta>::node jugada_actual){
 
-	//TODO :)
 	set<string> personajes_levantados;
+	cuales_quedan(jugada_actual, personajes_levantados);
 	return personajes_levantados;
 }
+
+void QuienEsQuien::cuales_quedan(bintree<Pregunta>::node n, set<string> & personajes_levantados){
+
+	if((*n).obtener_num_personajes()==1)		
+		personajes_levantados.insert((*n).obtener_personaje());
+	else{
+		if(!n.left().null() || !n.right().null()){
+			cuales_quedan(n.left(), personajes_levantados);
+			cuales_quedan(n.right(), personajes_levantados);
+		}
+			
+	}
+}
+
+
 
 void escribir_esquema_arbol(ostream& ss,
 					  const bintree<Pregunta>& a,
@@ -423,12 +443,11 @@ void QuienEsQuien::ver_profundidad(bintree<Pregunta>::node n, int & profundidad,
 	    if ( !n.right().null() || !n.left().null()) {// Si no es una hoja
 			profundidad++;
 	    	ver_profundidad(n.right(),profundidad, cantidad);
-			profundidad++;
 			ver_profundidad(n.left(),profundidad, cantidad);
-		}else{
-			cout << profundidad << " -<" << endl;
-			cantidad += profundidad;
 			profundidad--;
+
+		}else{
+			cantidad += profundidad;
 
 		}
   	}
