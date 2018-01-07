@@ -62,6 +62,15 @@ private:
 	bintree<Pregunta>::node jugada_actual;
 	void copiar(const QuienEsQuien &otra);
   int anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda);
+
+	/**
+	  * @brief Este metodo devuelve la cantidad de nodos que hay desde un nodo hacia abajo
+	  *
+	  *
+		*	@param El nodo apartir del cual se quiere contar
+	  * @pre El arbol de preguntas debe haber sido construido previamente.
+	*/
+	void  ver_profundidad(bintree<Pregunta>::node n, int & profundidad, int & cantidad);
 public:
 	string resolver_juego(const int numero_atributos);
 	void actualizar_personajes_tumbados(int atributo,vector<bool> & personajes_tumbados);
@@ -186,7 +195,8 @@ public:
 	  * @pre El arbol de preguntas debe haber sido construido previamente.
 	  */
 	float profundidad_promedio_hojas();
-
+	
+	
 	/**
 	  * @brief Rellena los datos del QuienEsQuien con un tablero calculado aleatoriamente.
 	  *

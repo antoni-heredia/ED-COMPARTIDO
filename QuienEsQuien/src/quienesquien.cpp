@@ -406,15 +406,33 @@ void QuienEsQuien::escribir_arbol_completo() const{
 }
 
 void QuienEsQuien::eliminar_nodos_redundantes(){
-	// TODO ^^
+	// Este metodo no ha sido añadido debido a que ya los teniamos en cuenta antes de añadirlos
 }
 
 float QuienEsQuien::profundidad_promedio_hojas(){
-	//TODO :)
-
-	return -1;
+	int cantidad = 0;
+	int profundidad = 0;
+	ver_profundidad(this->arbol.root(),profundidad, cantidad);
+	return cantidad/(personajes.size()*1.0);
 }
 
+void QuienEsQuien::ver_profundidad(bintree<Pregunta>::node n, int & profundidad, int & cantidad){
+	if (n.null()){
+
+	} else {
+	    if ( !n.right().null() || !n.left().null()) {// Si no es una hoja
+			profundidad++;
+	    	ver_profundidad(n.right(),profundidad, cantidad);
+			profundidad++;
+			ver_profundidad(n.left(),profundidad, cantidad);
+		}else{
+			cout << profundidad << " -<" << endl;
+			cantidad += profundidad;
+			profundidad--;
+
+		}
+  	}
+}
 /**
  * @brief Genera numero enteros positivos aleatorios en el rango [min,max).
 **/
