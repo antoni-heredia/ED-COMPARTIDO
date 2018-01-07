@@ -253,24 +253,50 @@ void QuienEsQuien::crear_arbol_recursivo(bintree<Pregunta>::node pregunta, int a
 				}
 
 			}
+		int nuevo_atributo;
+		nuevo_atributo = anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen,1);
+		nuevo_atributo = anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen,0);
+		if(atributo == nuevo_atributo)
+			atributo++;
+		else
+			atributo = nuevo_atributo;
 
-		anadir_nuevo_nodo(pregunta,atributo,eliminados_si,cumplen,1);
-		anadir_nuevo_nodo(pregunta,atributo,eliminados_no,no_cumplen,0);
-		crear_arbol_recursivo(pregunta.left(), 1+atributo, eliminados_si);
-		crear_arbol_recursivo(pregunta.right(), 1+atributo, eliminados_no);
+		if(cumplen > 0 && cumplen < (*pregunta).obtener_num_personajes()){
+			crear_arbol_recursivo(pregunta.left(), atributo, eliminados_si);
+			crear_arbol_recursivo(pregunta.right(), atributo, eliminados_no);
+		}else{
 
+			crear_arbol_recursivo(pregunta, atributo, eliminados);
+		}
 	}
 
 }
+int QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda){
 
-void QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda){
+	cout << num_elecciones << " " << (*pregunta).obtener_num_personajes() << " " << atributos[atributo] << endl;
+	if(num_elecciones > 1 && (*pregunta).obtener_num_personajes() > num_elecciones){
+		int cumplen = 0;
+		for(int i = 0 ; i < eliminados.size(); i++)
 
-	if(num_elecciones > 1)
-		if(esIzquierda)
+			if(!eliminados[i]){
+				if(esIzquierda)
+					if(tablero[i][atributo])
+						cumplen++;
+
+
+				else
+				if(tablero[i][atributo])
+					cumplen++;
+			}
+
+		if(cumplen != num_elecciones )
+			atributo++;
+		if(esIzquierda){
 			arbol.insert_left(pregunta, Pregunta(atributos[atributo], num_elecciones));
-		else
+
+		}else
 			arbol.insert_right(pregunta, Pregunta(atributos[atributo], num_elecciones));
-	else{
+	}else if(num_elecciones == 1){
 		int i = 0;
 
 		while (eliminados[i])
@@ -280,7 +306,10 @@ void QuienEsQuien::anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atrib
 		else
 			arbol.insert_right(pregunta, Pregunta(personajes[i], num_elecciones));
 	}
+
+	return atributo;
 }
+
 int QuienEsQuien::mejor_atributo(vector<bool> & atributos_usados, vector<bool> & personajes_tumbados, int &num_personajes_con_atributo){
 	int posicion = -1, contador_ant = 0, contador = 0, i;
 	contador_ant = 0;

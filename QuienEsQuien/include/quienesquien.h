@@ -61,7 +61,7 @@ private:
 	  */
 	bintree<Pregunta>::node jugada_actual;
 	void copiar(const QuienEsQuien &otra);
-  void anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda);
+  int anadir_nuevo_nodo(bintree<Pregunta>::node pregunta, int atributo, vector<bool> eliminados, int num_elecciones, bool esIzquierda);
 public:
 	string resolver_juego(const int numero_atributos);
 	void actualizar_personajes_tumbados(int atributo,vector<bool> & personajes_tumbados);
